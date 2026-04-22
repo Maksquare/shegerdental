@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import { Facebook, Linkedin, Twitter, Youtube, Instagram } from "lucide-react";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import Button from "./Button";
@@ -15,35 +15,61 @@ const Form = () => {
   return (
     <form className="flex flex-col">
       <div className="flex flex-col gap-[20px] mb-[20px]">
-        <Input type="fullname" placeholder="Full Name" />
-        <Input type="email" placeholder="Email address" />
-        <div className="flex flex-col xl:flex-row gap-[20px]">
-          <Input type="phone" placeholder="Phone number" />
-          <Select>
-            <SelectTrigger
-              className="w-full rounded-none h-[54px]
-            text-secondary outline-none"
-            >
-              <SelectValue placeholder="Select a service"></SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel> Select a services</SelectLabel>
-                <SelectItem value="construction">Construction</SelectItem>
-                <SelectItem value="renovation">Renovation</SelectItem>
-                <SelectItem value="restoration">Restoration</SelectItem>
-                <SelectItem value="consulting">Consulting</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-      <div className="flex flex-col gap-6">
-        {/* textarea */}
-        <Textarea
-          className="h-[180px] resize-none rounded-none"
-          placeholder="Enter Your Message"
-        />
+       <div className="flex flex-wrap gap-6 justify-start items-center">
+  {/* LinkedIn */}
+  <a 
+    href="https://linkedin.com/in/yourprofile" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="flex items-center gap-3 p-3 transition-all duration-300 hover:text-[#0077B5] hover:scale-110"
+  >
+    <Linkedin size={28} />
+    <span className="font-medium">LinkedIn</span>
+  </a>
+
+  {/* X / Twitter */}
+  <a 
+    href="https://twitter.com/yourhandle" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="flex items-center gap-3 p-3 transition-all duration-300 hover:text-[#1DA1F2] hover:scale-110"
+  >
+    <Twitter size={28} />
+    <span className="font-medium">Twitter</span>
+  </a>
+
+  {/* facebook */}
+  <a 
+    href="https://facebook.com/yourprofile" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="flex items-center gap-3 p-3 transition-all duration-300 hover:text-[#3b5998] hover:scale-110"
+  >
+    <Facebook size={28} />
+    <span className="font-medium">Facebook</span>
+  </a>
+
+  {/* YouTube */}
+  <a 
+    href="https://youtube.com/yourchannel" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="flex items-center gap-3 p-3 transition-all duration-300 hover:text-[#FF0000] hover:scale-110"
+  >
+    <Youtube size={28} />
+    <span className="font-medium">YouTube</span>
+  </a>
+  {/* Instagram */}
+  <a 
+    href="https://instagram.com/yourusername" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="flex items-center gap-3 p-3 transition-all duration-300 hover:text-[#E1306C] hover:scale-110"
+  >
+    <Instagram size={28} />
+    <span className="font-medium">Instagram</span>
+  </a>
+</div>
         {/* btn */}
         <Button className=""text="Send message"/>
       </div>
