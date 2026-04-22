@@ -2,7 +2,7 @@ import React from "react";
 import Button from "./Button";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
-
+import { Link as ScrollLink } from "react-scroll";
 const Hero = () => {
   return (
     <section className="relative h-[70vh] bg-hero bg-center bg-no-repeat bg-cover">
@@ -42,7 +42,23 @@ const Hero = () => {
             whileInView="show"
             viewport={{ once: false, amount: 0.8 }}
           >
-            <Button text="Contact Us" />
+
+
+ <ScrollLink
+                      to={"contact"}
+                      smooth
+                      spy
+                      className="cursor-pointer"
+                      activeClass="text-accent"
+                    >
+                     <Button text="Contact Us" />
+                    </ScrollLink>
+
+
+
+
+
+            
           </motion.div>
         </div>
       </div>
