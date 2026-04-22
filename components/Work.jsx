@@ -97,7 +97,7 @@ const Work = () => {
                     <p>{work.description}</p>
                   </div>
                 </div>
-                <Link
+                {/* <Link
                   href={work.href}
                   className="w-[44px] xl:w-[60px] xl:h-[60px] h-[44px] bg-accent
                     text-primary text-2xl flex justify-center
@@ -105,7 +105,7 @@ const Work = () => {
                     "
                 >
                   <RiArrowRightUpLine />
-                </Link>
+                </Link> */}
               </div>
             </div>
           );

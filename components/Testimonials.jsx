@@ -4,7 +4,7 @@ import Image from "next/image";
 import Button from "./Button";
 import Pretitle from "./Pretitle";
 import Slider from "./Slider";
-
+import { Link as ScrollLink } from "react-scroll";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
 const Testimonials = () => {
@@ -28,7 +28,22 @@ const Testimonials = () => {
               we’ve supported their health, comfort, and peace of mind with
               dedicated, expert care.
             </p>
-            <Button text="Contact Us" />
+
+
+ <ScrollLink
+                      to={"contact"}
+                      smooth
+                      spy
+                      className="cursor-pointer"
+                      activeClass="text-accent"
+                    >
+                     <Button text="Contact Us" />
+                    </ScrollLink>
+
+            
+          
+          
+          
           </motion.div>
           {/* img & slider */}
           <motion.div

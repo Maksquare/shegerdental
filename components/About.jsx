@@ -4,7 +4,7 @@ import Button from "./Button";
 
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
-
+import { Link as ScrollLink } from "react-scroll";
 const About = () => {
   return (
     <div className="pt-16 xl:pt-32" id="about">
@@ -44,7 +44,24 @@ const About = () => {
                 <p>Company CEO </p>
               </div>
               {/* button */}
-              <Button text="Contact Us" />
+
+
+
+
+ <ScrollLink
+                      to={"contact"}
+                      smooth
+                      spy
+                      className="cursor-pointer"
+                      activeClass="text-accent"
+                    >
+                     <Button text="Contact Us" />
+                    </ScrollLink>
+
+             
+            
+            
+            
             </div>
           </motion.div>
           {/* image */}

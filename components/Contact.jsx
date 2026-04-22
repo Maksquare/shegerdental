@@ -95,12 +95,9 @@ const Contact = () => {
             </div>
             {/* form */}
             <div className="flex-1">
-              <h2 className="h2 mb-3">Request A Care</h2>
+              <h2 className="h3 mb-3">Connect With Us on Social Media</h2>
               <p className="mb-9">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. In
-                porro exercitationem dolor perferendis quaerat a impedit illo
-                eos provident. Vel vitae amet doloremque eum cumque eos
-                asperiores odit et temporibus.
+                Stay in touch and be part of our community. Follow us on social media for helpful care tips, updates, and a closer look at how we support families every day.
               </p>
               <Form />
             </div>

@@ -6,11 +6,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Facebook, Linkedin, Twitter, Youtube, Instagram } from "lucide-react";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
+import { Facebook, Linkedin, X, Youtube, Instagram } from "lucide-react";
+import { FaXTwitter } from "react-icons/fa6";
 import Button from "./Button";
-import { SelectGroup } from "@radix-ui/react-select";
 const Form = () => {
   return (
     <form className="flex flex-col">
@@ -34,7 +32,7 @@ const Form = () => {
     rel="noopener noreferrer"
     className="flex items-center gap-3 p-3 transition-all duration-300 hover:text-[#1DA1F2] hover:scale-110"
   >
-    <Twitter size={28} />
+    <FaXTwitter size={28} />
     <span className="font-medium">Twitter</span>
   </a>
 

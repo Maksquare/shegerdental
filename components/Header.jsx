@@ -3,6 +3,7 @@ import { RiArrowRightUpLine } from "react-icons/ri";
 import { Link as ScrollLink } from "react-scroll";
 import Logo from "./Logo";
 import NavMobile from "./NavMobile";
+
 const links = [
   {
     name: "home",
@@ -58,17 +59,37 @@ const Header = () => {
               })}
             </ul>
             {/*btn */}
-            <button
+
+
+
+             <ScrollLink
+                      to={"contact"}
+                      smooth
+                      spy
+                      className="cursor-pointer"
+                      activeClass="text-accent"
+                    >
+                    
+
+
+
+
+ <button
               className="w-[200px] h-[54px] py-[5px] pl-[10px] pr-[5px] flex
       items-center justify-between min-w-[200px] bg-white group"
             >
               <div className="flex-1 text-center tracking-[1.2px] font-primary text-primary font-bold text-sm uppercase">
-                Call Us
+                Contact Us
               </div>
               <div className="w-11 h-11 bg-primary flex items-center justify-center">
                 <RiArrowRightUpLine className="text-white text-xl group hover:rotate-45  transition-all duration-200" />
               </div>
             </button>
+
+
+
+                    </ScrollLink>
+           
           </nav>
           {/* Mobile nav */}
           <div className="xl:hidden">

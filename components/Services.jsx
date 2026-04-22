@@ -33,7 +33,7 @@ const Services = () => {
       icon: <PiPaintRollerFill />,
       title: "Therapy & Rehabilitation Services",
       description: `Focuses on recovery, wellness, and long-term improvement`,
-      servicesLList: ["ፊዚዮ ቴራፒ", "ስፒች ቴራፒ", "የስነምግብ ባለሞያ","Neurological Rehabilitation","Orthopedic Rehabilitation","Cardio-Pulmonary Rehabilitation","Pediatric Rehabilitation","Speech & Swallow Therapy","Occupational Therapy (OT)","Geriatric Rehabilitation","Post-ICU / Critical Care Rehab","Mental Health & Counseling"],
+      servicesLList: ["Physiotherapy","Neurological Rehabilitation","Orthopedic Rehabilitation","Cardio-Pulmonary Rehabilitation","Pediatric Rehabilitation","Speech & Swallow Therapy","Occupational Therapy (OT)","Geriatric Rehabilitation"],
       thumbs: [
         { url: "/assets/img/services/thumb-3.jpg", alt: "Thumbs3" },
         { url: "/assets/img/services/thumb-4.jpg", alt: "Thumbs4" },
@@ -44,7 +44,7 @@ const Services = () => {
       icon: <PiWrenchFill />,
       title: "Medical Equipment & Support Services",
       description: `Covers all equipment and technical support`,
-      servicesLList: ["የህክምና አልጋ", "ኦክስጅን ሲሊንደር", "ሜካኒካል ቬንትሌተር", "የሳክሽን ማሽን"],
+      servicesLList: ["Oxygen concentrator (5–10L)", "Oxygen cylinders", "Flow meter", "Nebulizer","Nebulizer ","Suction machine","CPAP / BiPAP machine","Portable ventilator","Monitoring Devices","Hospital bed (manual/electric)"],
       thumbs: [
         { url: "/assets/img/services/thumb-5.jpg", alt: "Thumbs4" },
         { url: "/assets/img/services/thumb-6.jpg", alt: "Thumbs5" },
