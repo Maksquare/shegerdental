@@ -14,8 +14,8 @@ export default {
       xl: "1200px",
     },
     fontFamily: {
-      primary: ["var(--font-nunito)"],
-      secondary: ["var(--font-lora)"],
+      primary: ["var(--font-jakarta)"],
+      secondary: ["var(--font-playfair)"],
     },
     container: {
       center: true,
@@ -23,15 +23,15 @@ export default {
     },
     extend: {
       colors: {
-        primary:   "#1c3829",
-        secondary: "#6b8070",
-        accent:    "#f0a500",
-        border:    "#d8e4d8",
-        surface:   "#f6f9f4",
-        muted:     "#274d3a",
+        primary:   "#1a2744",
+        secondary: "#6b7280",
+        accent:    "#c9a84c",
+        border:    "#e2e0d8",
+        surface:   "#f7f4ed",
+        muted:     "#243260",
       },
       boxShadow: {
-        custom: "0 4px 54px rgba(28, 56, 41, 0.08)",
+        custom: "0 4px 54px rgba(26, 39, 68, 0.08)",
       },
       backgroundImage: {
         hero: "url('/assets/img/hero/bg.jpg')",
