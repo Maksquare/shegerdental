@@ -27,8 +27,12 @@ export default function RootLayout({ children }) {
       <body
         className={`${dmSans.variable} ${barlow.variable} antialiased`}
       >
+             <div className="pt-28">
+
         {children}
         <WhatsAppButton/>
+             </div>
+      
       </body>
     </html>
   );

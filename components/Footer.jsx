@@ -1,108 +1,208 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Socials from "./Socials";
+import { motion } from "framer-motion";
 import {
-  RiMapPin2Fill,
+  RiMapPinFill,
   RiPhoneFill,
   RiMailFill,
-  RiArrowRightLine,
-  RiMapPinFill,
+  RiArrowRightUpLine,
+  RiSendPlaneFill,
 } from "react-icons/ri";
 
-import { motion } from "framer-motion";
-import { fadeIn } from "../variants";
+const contactItems = [
+  {
+    icon: <RiMapPinFill />,
+    value: "Kolfe Keranyo, Ayer Tena, Ethiopia",
+    href: null,
+  },
+  {
+    icon: <RiPhoneFill />,
+    value: "+251 (912) 345 678",
+    href: "tel:+251912345678",
+  },
+  {
+    icon: <RiMailFill />,
+    value: "fewzanhomecare@gmail.com",
+    href: "mailto:fewzanhomecare@gmail.com",
+  },
+];
+
+const quickLinks = [
+  { name: "Home",         href: "#home"         },
+  { name: "About",        href: "#about"        },
+  { name: "Services",     href: "#services"     },
+  { name: "Testimonials", href: "#testimonials" },
+  { name: "Contact",      href: "#contact"      },
+];
+
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+};
+
+const animItem = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+};
+
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email) return;
+    setSubmitted(true);
+    setEmail("");
+  };
+
   return (
-    <motion.footer
-      variants={fadeIn("up", 0.1)} // Direction usually lowercase "up"
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: false, amount: 0.1 }}
-      className=" mt-16 xl:mt-32 bg-primary"
-    >
-      <div className="container mx-auto">
-        <div
-          className="py-16 xl:py-[100px] flex flex-col xl:flex-row
-        gap-[60px] xl:gap-[30px]
-        "
-        >
-          {/* logo and text */}
-          <div className="flex-1">
-            <Link href="/" className="flex mb-6">
-              <Image src="/assets/logo.svg" width={230} height={48} alt="" />
-            </Link>
-            <p className="text-border max-w-[270px]">
-              Providing compassionate, reliable home care services designed to support independence, dignity, and comfort in the place you call home.
-            </p>
-          </div>
-          {/* contact */}
-          <div className="flex-1 text-border">
-            <h4 className="h4 text-white mb-10">Contact</h4>
-            <ul className=" flex flex-col gap-6">
-              <li className="flex items-center gap-4">
-                <RiMapPinFill className="text-accent text-xl " />
-                <p>Kolfe Keranyo, Ayer Tena, ETHIOPIA</p>
-              </li>
-              <li className="flex items-center gap-4">
-                <RiPhoneFill className="text-accent text-xl " />
-                <p>+251 (912) 345 678</p>
-              </li>
-              <li className="flex items-center gap-4">
-                <RiMailFill className="text-accent text-xl " />
-                <p>fewzanhomecare@gmail.com</p>
-              </li>
-            </ul>
-          </div>
-          {/* newsletter */}
-          <div className="flex-1 text-border">
-            <h4 className="h4 text-white mb-10">Newsletter</h4>
-            <p className="mb-9">
-           Stay connected and informed with helpful tips, care advice, and updates from our team. Our newsletter is designed to support you and your loved ones with practical guidance and the latest in home care.
-            </p>
-            {/* input */}
-            <div className="relative max-w-[370px]">
-              <input
-                type="text"
-                placeholder="Enter Your email"
-                className="
-              bg-[#222427] h-16 w-full pl-7 rounded-none outline-none flex
-              items-center
-              "
-              />
-              <button
-                className="bg-accent w-12 h-[12] absolute p-3
-              
-              right-5 top-5 bottom-5 text-primary texl-xl flex items-center justify-center
+    <footer className="relative bg-primary overflow-hidden mt-0">
 
-              "
-              >
-                <RiArrowRightLine  className="text-white text-xl "/>
+      {/* Decorative glows */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full bg-accent/5 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-accent/5 blur-3xl pointer-events-none" />
 
+      {/* Top accent line */}
+      <div className="h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent" />
 
-                
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* copyright */}
-      <div
-        className="container mx-auto xl:px-0 py-12 border-t border-border/10
-      
-      flex flex-col gap-6 xl:flex-row items-center justify-between
-      "
+      <motion.div
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.1 }}
+        className="container relative z-10"
       >
-        <p className="text-border">
-          Copyright &copy; 2026 FewzanHomeCare. All rights reserved
-        </p>
-        <Socials
-          containerStyles={"flex gap-6 text-white"}
-          iconStyles="
-        
-        hover:text-accent transition-all        "
-        />
-      </div>
-    </motion.footer>
+
+        {/* Main grid */}
+        <div className="py-16 xl:py-24 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12 xl:gap-8">
+
+          {/* Col 1 — Brand */}
+          <motion.div variants={animItem} className="xl:col-span-1">
+            <Link href="/" className="inline-block mb-6">
+              <Image src="/assets/logo.svg" width={200} height={42} alt="FewzanHomeCare" />
+            </Link>
+            <p className="font-primary text-sm leading-relaxed text-white/40 max-w-[240px] mb-8">
+              Compassionate home care designed to support independence, dignity,
+              and comfort in the place you call home.
+            </p>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+              <span className="font-primary text-[10px] font-semibold tracking-[0.18em] uppercase text-white/40">
+                24/7 Available
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Col 2 — Quick Links */}
+          <motion.div variants={animItem}>
+            <h4 className="font-primary text-xs font-semibold tracking-[0.2em] uppercase text-accent mb-7">
+              Quick Links
+            </h4>
+         
+<ul className="flex flex-col gap-3">
+  {quickLinks.map((link, idx) => (
+    <li key={idx} className="group flex items-center gap-2">
+      <RiArrowRightUpLine className="text-accent text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+      <span
+        onClick={() => {
+          const target = document.getElementById(link.href.replace("#", ""));
+          if (target) target.scrollIntoView({ behavior: "smooth" });
+        }}
+        className="cursor-pointer font-primary text-sm font-medium text-white/40 hover:text-white transition-colors duration-200"
+      >
+        {link.name}
+      </span>
+    </li>
+  ))}
+</ul>
+
+
+          </motion.div>
+
+          {/* Col 3 — Contact */}
+          <motion.div variants={animItem}>
+            <h4 className="font-primary text-xs font-semibold tracking-[0.2em] uppercase text-accent mb-7">
+              Contact
+            </h4>
+            <ul className="flex flex-col gap-5">
+              {contactItems.map((c, idx) => (
+                <li key={idx} className="flex items-start gap-3">
+                  <span className="text-accent text-base mt-0.5 shrink-0">
+                    {c.icon}
+                  </span>
+                  <span className="font-primary text-sm text-white/40 leading-snug">
+                    {c.value}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Col 4 — Newsletter */}
+          <motion.div variants={animItem}>
+            <h4 className="font-primary text-xs font-semibold tracking-[0.2em] uppercase text-accent mb-7">
+              Newsletter
+            </h4>
+            <p className="font-primary text-sm leading-relaxed text-white/40 mb-6">
+              Care tips and updates from our team, delivered straight to your inbox.
+            </p>
+
+            {submitted ? (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl bg-accent/10 border border-accent/20"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+                <p className="font-primary text-xs font-semibold text-accent">
+                  You're subscribed. Thank you!
+                </p>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="relative">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your email address"
+                  className="w-full h-12 pl-4 pr-14 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/20 font-primary text-sm outline-none focus:border-accent/40 transition-colors duration-200"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-1.5 top-1.5 bottom-1.5 w-9 flex items-center justify-center rounded-lg bg-accent text-primary hover:bg-accent/90 transition-colors duration-200"
+                >
+                  <RiSendPlaneFill className="text-sm" />
+                </button>
+              </form>
+            )}
+          </motion.div>
+
+        </div>
+
+        {/* Divider */}
+        <div className="h-px bg-white/[0.06]" />
+
+        {/* Bottom bar */}
+        <motion.div
+          variants={animItem}
+          className="py-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+        >
+          <p className="font-primary text-xs text-white/25">
+            &copy; 2026 FewzanHomeCare. All rights reserved.
+          </p>
+          <Socials
+            containerStyles="flex items-center gap-5"
+            iconStyles="text-white/25 hover:text-accent text-lg transition-colors duration-200"
+          />
+        </motion.div>
+
+      </motion.div>
+    </footer>
   );
 };
 

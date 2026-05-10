@@ -30,7 +30,7 @@ const Form = () => {
     href="https://twitter.com/yourhandle" 
     target="_blank" 
     rel="noopener noreferrer"
-    className="flex items-center gap-3 p-3 transition-all duration-300 hover:text-[#1DA1F2] hover:scale-110"
+    className="flex items-center gap-3 p-3 transition-all duration-300 hover:text-black hover:scale-110"
   >
     <FaXTwitter size={28} />
     <span className="font-medium">Twitter</span>
@@ -69,7 +69,7 @@ const Form = () => {
   </a>
 </div>
         {/* btn */}
-        <Button className=""text="Send message"/>
+        {/* <Button className=""text="Send message"/> */}
       </div>
     </form>
   );
