@@ -26,7 +26,7 @@ const item = {
 
 const Hero = () => {
   return (
-    <section className="relative h-[100svh] pt-28 min-h-[620px] bg-hero bg-center bg-no-repeat bg-cover overflow-hidden">
+    <section id="home" className="relative h-[100svh] pt-28 min-h-[620px] bg-hero bg-center bg-no-repeat bg-cover overflow-hidden">
 
       {/* ── Layered overlay: dark left-focus gradient ── */}
       <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/80 via-black/50 to-black/10" />

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link as ScrollLink } from "react-scroll";
 import Socials from "./Socials";
 import { motion } from "framer-motion";
 import {
@@ -83,9 +83,15 @@ const Footer = () => {
 
           {/* Col 1 — Brand */}
           <motion.div variants={animItem} className="xl:col-span-1">
-            <Link href="/" className="inline-block mb-6">
-              <Image src="/assets/logo.png" width={300} height={42} alt="Texas Homecare" />
-            </Link>
+          <ScrollLink
+                to={"home"}
+                smooth
+                spy
+                className="cursor-pointer"
+                activeClass="text-accent"
+              >
+              <Image src="/assets/logo.png" quality={100} width={100} height={42} alt="Texas Homecare" />
+            </ScrollLink>
             <p className="font-primary text-sm leading-relaxed text-white/40 max-w-[240px] mb-8">
               Compassionate home care designed to support independence, dignity,
               and comfort in the place you call home.
