@@ -11,7 +11,7 @@ const Logo = () => {
       className="cursor-pointer"
       activeClass="text-accent"
     >
-      <Image src="/assets/logo.svg" alt="Logo" width={230} height={40} />
+      <Image src="/assets/logo.png" alt="Logo" width={230} height={40} />
     </ScrollLink>
   );
 };

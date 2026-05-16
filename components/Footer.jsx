@@ -84,7 +84,7 @@ const Footer = () => {
           {/* Col 1 — Brand */}
           <motion.div variants={animItem} className="xl:col-span-1">
             <Link href="/" className="inline-block mb-6">
-              <Image src="/assets/logo.svg" width={200} height={42} alt="FewzanHomeCare" />
+              <Image src="/assets/logo.png" width={300} height={42} alt="Texas Homecare" />
             </Link>
             <p className="font-primary text-sm leading-relaxed text-white/40 max-w-[240px] mb-8">
               Compassionate home care designed to support independence, dignity,

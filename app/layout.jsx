@@ -16,7 +16,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata = {
-  title: "Fewzan Homecare",
+  title: "Texas Homecare",
   description: "Hospital level care at the comfort of your home",
 };
 
