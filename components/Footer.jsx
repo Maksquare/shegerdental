@@ -90,7 +90,7 @@ const Footer = () => {
                 className="cursor-pointer"
                 activeClass="text-accent"
               >
-              <Image src="/assets/logo.png" quality={100} width={100} height={42} alt="Texas Homecare" />
+              <Image src="/assets/logo.png" quality={100} width={100} className="mb-4" height={42} alt="Texas Homecare" />
             </ScrollLink>
             <p className="font-primary text-sm leading-relaxed text-white/40 max-w-[240px] mb-8">
               Compassionate home care designed to support independence, dignity,
