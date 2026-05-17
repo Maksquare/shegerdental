@@ -199,7 +199,7 @@ const Footer = () => {
           className="py-8 flex flex-col sm:flex-row items-center justify-between gap-4"
         >
           <p className="font-primary text-xs text-white/25">
-            &copy; 2026 FewzanHomeCare. All rights reserved.
+            &copy; 2026 Texashomecare. All rights reserved.
           </p>
           <Socials
             containerStyles="flex items-center gap-5"

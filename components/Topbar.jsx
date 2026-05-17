@@ -7,7 +7,7 @@ import Socials from "./Socials";
 
 const contactItems = [
   { icon: <RiPhoneFill />, label: "+2519 1234 5678",          href: "tel:+251912345678"             },
-  { icon: <RiMailFill />,  label: "fewzanhomecare@gmail.com", href: "mailto:fewzanhomecare@gmail.com" },
+  { icon: <RiMailFill />,  label: "Texashomecare@gmail.com", href: "mailto:Texashomecare@gmail.com" },
 ];
 
 const Topbar = () => {

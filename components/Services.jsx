@@ -11,6 +11,8 @@ import {
   PiArrowRightBold,
   PiCheckCircleFill,
 } from "react-icons/pi";
+import ServiceModal from "@/components/ServiceModal"; // adjust path if needed
+import ContactModal from "@/components/ContactModal"; // adjust path if needed
 
 const servicesData = [
   {
@@ -113,12 +115,23 @@ export default function Services() {
   const [activeId, setActiveId] = useState(servicesData[0].id);
   const active = servicesData.find((s) => s.id === activeId);
 
+  // ── Service detail modal ──
+  const [serviceModalOpen, setServiceModalOpen] = useState(false);
+  const [modalService, setModalService] = useState(null);
+
+  // ── Contact / booking modal ──
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+
+  function openServiceModal(service) {
+    setModalService(service);
+    setServiceModalOpen(true);
+  }
+
   return (
     <section
       className="relative py-24 xl:py-36 overflow-hidden bg-[#f4f7f7]"
       id="services"
     >
-      {/* Decorative tints using brand colors */}
       <div className="absolute top-0 right-0 w-[40vw] h-full pointer-events-none bg-gradient-to-bl from-accent/5 to-transparent" />
       <div className="absolute bottom-0 left-0 w-64 h-64 pointer-events-none rounded-full bg-primary/[0.03] blur-3xl" />
 
@@ -132,15 +145,12 @@ export default function Services() {
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           className="mb-16 xl:mb-20"
         >
-          {/* Eyebrow */}
           <div className="flex items-center gap-3 mb-5">
             <div className="h-px w-10 bg-accent" />
             <span className="font-primary text-xs font-semibold tracking-[0.2em] uppercase text-accent">
               Our Services
             </span>
           </div>
-
-          {/* Title + description */}
           <div className="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-6">
             <h2 className="font-secondary text-4xl xl:text-5xl font-bold leading-tight max-w-xl text-primary tracking-tight">
               Integrated Homecare &{" "}
@@ -162,7 +172,6 @@ export default function Services() {
           transition={{ duration: 0.65, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
           className="grid xl:grid-cols-[280px_1fr] gap-5 xl:gap-8 items-start"
         >
-
           {/* ── Left: Service Selector ── */}
           <div className="flex xl:flex-col gap-3 overflow-x-auto xl:overflow-visible pb-2 xl:pb-0">
             {servicesData.map((service) => {
@@ -183,7 +192,6 @@ export default function Services() {
                       : "bg-white border-border hover:border-primary/30 shadow-sm hover:shadow-custom",
                   ].join(" ")}
                 >
-                  {/* Number tag */}
                   <span
                     className={[
                       "absolute top-3 right-3 text-xs font-mono font-semibold",
@@ -192,38 +200,22 @@ export default function Services() {
                   >
                     {service.tag}
                   </span>
-
-                  {/* Icon */}
                   <div
                     className={[
-                      "flex items-center justify-center w-11 h-11 rounded-lg shrink-0 text-xl",
-                      "transition-all duration-300",
-                      isActive
-                        ? "bg-accent/20 text-accent"
-                        : "bg-primary/5 text-primary",
+                      "flex items-center justify-center w-11 h-11 rounded-lg shrink-0 text-xl transition-all duration-300",
+                      isActive ? "bg-accent/20 text-accent" : "bg-primary/5 text-primary",
                     ].join(" ")}
                   >
                     {service.icon}
                   </div>
-
-                  {/* Label */}
                   <div>
-                    <p
-                      className={[
-                        "font-primary text-sm font-semibold leading-tight",
-                        isActive ? "text-white" : "text-primary",
-                      ].join(" ")}
-                    >
+                    <p className={["font-primary text-sm font-semibold leading-tight", isActive ? "text-white" : "text-primary"].join(" ")}>
                       {service.label}
                     </p>
                     {isActive && (
-                      <p className="font-primary text-xs mt-0.5 text-white/40">
-                        Currently viewing
-                      </p>
+                      <p className="font-primary text-xs mt-0.5 text-white/40">Currently viewing</p>
                     )}
                   </div>
-
-                  {/* Active left-bar indicator */}
                   {isActive && (
                     <motion.div
                       layoutId="activeBar"
@@ -255,50 +247,31 @@ export default function Services() {
                       className="relative overflow-hidden rounded-xl flex-1 min-h-[120px] bg-primary/5"
                       style={{ aspectRatio: "4/3" }}
                     >
-                      <Image
-                        src={thumb.url}
-                        alt={thumb.alt}
-                        fill
-                        className="object-cover rounded-xl"
-                      />
-                      {/* Accent frame */}
+                      <Image src={thumb.url} alt={thumb.alt} fill className="object-cover rounded-xl" />
                       <div className="absolute inset-0 rounded-xl border border-accent/20 pointer-events-none" />
                     </div>
                   ))}
-
-                  {/* Premium badge */}
                   <div className="hidden lg:flex items-center gap-2 mt-1 px-3 py-2 rounded-lg bg-accent/10 border border-accent/20">
                     <div className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
-                    <span className="font-primary text-xs font-semibold text-primary/60">
-                      Premium Care
-                    </span>
+                    <span className="font-primary text-xs font-semibold text-primary/60">Premium Care</span>
                   </div>
                 </div>
 
                 {/* Text column */}
                 <div className="flex-1 p-6 xl:p-9 flex flex-col justify-between">
                   <div>
-                    {/* Tag */}
                     <span className="font-primary inline-block text-xs font-semibold tracking-widest uppercase text-accent mb-3">
                       {active.tag} / {active.name}
                     </span>
-
-                    {/* Title */}
                     <h3 className="font-secondary text-2xl xl:text-3xl font-bold text-primary leading-snug tracking-tight mb-2">
                       {active.title}
                     </h3>
-
-                    {/* Subtitle */}
                     <p className="font-primary text-sm font-semibold text-accent mb-4">
                       {active.subtitle}
                     </p>
-
-                    {/* Description */}
                     <p className="font-primary text-sm leading-relaxed text-secondary mb-8">
                       {active.description}
                     </p>
-
-                    {/* Services list */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2.5 mb-8">
                       {active.items.map((item, idx) => (
                         <motion.div
@@ -309,28 +282,34 @@ export default function Services() {
                           className="flex items-center gap-2.5"
                         >
                           <PiCheckCircleFill className="text-accent text-base shrink-0" />
-                          <span className="font-primary text-sm font-medium text-primary">
-                            {item}
-                          </span>
+                          <span className="font-primary text-sm font-medium text-primary">{item}</span>
                         </motion.div>
                       ))}
                     </div>
                   </div>
 
-                  {/* CTA row */}
+                  {/* ── CTA row ── */}
                   <div className="flex items-center gap-4 pt-5 border-t border-border">
+                    {/* Learn More → opens service detail modal */}
                     <motion.button
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.97 }}
+                      onClick={() => openServiceModal(active)}
                       className="flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-primary text-sm font-semibold tracking-wide transition-colors duration-200 hover:bg-primary/90"
                     >
                       Learn More
                       <PiArrowRightBold className="text-xs" />
                     </motion.button>
 
-                    <button className="font-primary text-sm font-semibold text-secondary transition-colors duration-200 hover:text-accent cursor-pointer bg-transparent border-none">
+                    {/* Book a Consultation → opens contact modal */}
+                    <motion.button
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      onClick={() => setContactModalOpen(true)}
+                      className="font-primary text-sm font-semibold text-secondary transition-colors duration-200 hover:text-accent cursor-pointer bg-transparent border-none"
+                    >
                       Book a Consultation →
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
               </motion.div>
@@ -347,21 +326,28 @@ export default function Services() {
           className="mt-8 grid grid-cols-2 xl:grid-cols-4 gap-4"
         >
           {stats.map((stat, idx) => (
-            <div
-              key={idx}
-              className="flex flex-col p-5 rounded-xl bg-white border border-border shadow-sm"
-            >
-              <span className="font-secondary text-2xl font-bold text-accent mb-1">
-                {stat.value}
-              </span>
-              <span className="font-primary text-xs font-medium text-secondary">
-                {stat.label}
-              </span>
+            <div key={idx} className="flex flex-col p-5 rounded-xl bg-white border border-border shadow-sm">
+              <span className="font-secondary text-2xl font-bold text-accent mb-1">{stat.value}</span>
+              <span className="font-primary text-xs font-medium text-secondary">{stat.label}</span>
             </div>
           ))}
         </motion.div>
 
       </div>
+
+      {/* ── Service Detail Modal ── */}
+      <ServiceModal
+        service={modalService}
+        open={serviceModalOpen}
+        onOpenChange={setServiceModalOpen}
+        onBookConsultation={() => setContactModalOpen(true)}
+      />
+
+      {/* ── Contact / Booking Modal ── */}
+      <ContactModal
+        open={contactModalOpen}
+        onOpenChange={setContactModalOpen}
+      />
     </section>
   );
 }

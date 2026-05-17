@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PiPlusBold, PiMinusBold } from "react-icons/pi";
+import { Link as ScrollLink } from "react-scroll";
 
 const faqItemsData = [
   {
@@ -217,9 +218,11 @@ const Faq = () => {
               Still have questions? Our care team is available 24/7.
             </p>
           </div>
-          <button className="shrink-0 flex items-center gap-2 px-6 py-2.5 rounded-lg bg-accent text-primary font-primary text-xs font-bold tracking-[0.15em] uppercase transition-all duration-200 hover:bg-accent/90 shadow-custom">
-            Contact Us
-          </button>
+          <ScrollLink to="contact" smooth={true} duration={500}>
+            <button className="shrink-0 flex items-center gap-2 px-6 py-2.5 rounded-lg bg-accent text-primary font-primary text-xs font-bold tracking-[0.15em] uppercase transition-all duration-200 hover:bg-accent/90 shadow-custom">
+              Contact Us
+            </button>
+          </ScrollLink>
         </motion.div>
 
       </div>

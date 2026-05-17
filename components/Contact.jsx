@@ -10,8 +10,8 @@ const contactItems = [
     icon: <RiChat1Line />,
     title: "Chat to us",
     subtitle: "Our friendly team is here to help.",
-    value: "fewzanhomecare@gmail.com",
-    href: "mailto:fewzanhomecare@gmail.com",
+    value: "Texashomecare@gmail.com",
+    href: "mailto:Texashomecare@gmail.com",
   },
   {
     icon: <RiMapPin2Line />,

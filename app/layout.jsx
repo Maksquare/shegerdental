@@ -18,6 +18,12 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata = {
   title: "Texas Homecare",
   description: "Hospital level care at the comfort of your home",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({ children }) {
