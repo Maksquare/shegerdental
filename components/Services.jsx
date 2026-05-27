@@ -303,6 +303,7 @@ export default function Services() {
                       <Image
                         src={thumb.url}
                         alt={thumb.alt}
+                        sizes=""
                         fill
                         className="object-cover"
                       />
