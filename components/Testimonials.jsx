@@ -206,7 +206,7 @@ const Testimonials = () => {
               style={{ boxShadow: "0 24px 64px rgba(13,27,42,0.22)" }}
             >
               <Image
-                src="/assets/img/testimonials/img.jpg"
+                src="/assets/img/testimonials/img.png"
                 fill
                 className="object-cover"
                 quality={100}
