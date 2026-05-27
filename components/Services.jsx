@@ -36,8 +36,8 @@ const servicesData = [
       "Enamel Shaping",
     ],
     thumbs: [
-      { url: "/assets/img/services/thumb-1.jpg", alt: "Smile makeover" },
-      { url: "/assets/img/services/thumb-2.jpg", alt: "Veneers" },
+      { url: "/assets/img/services/thumb-1.png", alt: "Smile makeover" },
+      { url: "/assets/img/services/thumb-2.png", alt: "Veneers" },
     ],
     accentLabel: "Most Popular",
   },
@@ -60,8 +60,8 @@ const servicesData = [
       "Root Canal Therapy",
     ],
     thumbs: [
-      { url: "/assets/img/services/thumb-3.jpg", alt: "Dental implants" },
-      { url: "/assets/img/services/thumb-4.jpg", alt: "Crowns" },
+      { url: "/assets/img/services/thumb-3.png", alt: "Dental implants" },
+      { url: "/assets/img/services/thumb-4.png", alt: "Crowns" },
     ],
     accentLabel: null,
   },
@@ -84,8 +84,8 @@ const servicesData = [
       "Adult Orthodontics",
     ],
     thumbs: [
-      { url: "/assets/img/services/thumb-5.jpg", alt: "Clear aligners" },
-      { url: "/assets/img/services/thumb-6.jpg", alt: "Orthodontics" },
+      { url: "/assets/img/services/thumb-5.png", alt: "Clear aligners" },
+      { url: "/assets/img/services/thumb-6.png", alt: "Orthodontics" },
     ],
     accentLabel: null,
   },
@@ -108,8 +108,8 @@ const servicesData = [
       "Oral Cancer Screening",
     ],
     thumbs: [
-      { url: "/assets/img/services/thumb-7.jpg", alt: "Check-up" },
-      { url: "/assets/img/services/thumb-8.jpg", alt: "Cleaning" },
+      { url: "/assets/img/services/thumb-7.png", alt: "Check-up" },
+      { url: "/assets/img/services/thumb-8.png", alt: "Cleaning" },
     ],
     accentLabel: null,
   },
