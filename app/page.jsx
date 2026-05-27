@@ -16,7 +16,6 @@ const Home = () => {
     <div className="overflow-hidden">
       {/* Single header — scroll behavior handled internally */}
       <Header />
-{/* <Topbar/> */}
       <Hero />
       <About />
       <Stats />

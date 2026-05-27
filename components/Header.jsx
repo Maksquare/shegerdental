@@ -73,43 +73,7 @@ const socials = [
   { icon: RiTiktokLine,      label: "TikTok",    href: "https://tiktok.com"    },
 ];
 
-/* ─── Announcement Bar ──────────────────────────────────────────── */
-const AnnouncementBar = ({ visible }) => (
-  <AnimatePresence>
-    {visible && (
-      <motion.div
-        key="announcement"
-        initial={{ height: 0, opacity: 0 }}
-        animate={{ height: "auto", opacity: 1 }}
-        exit={{ height: 0, opacity: 0 }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="overflow-hidden bg-primary border-b border-white/[0.07]"
-      >
-        <div className="container">
-          <div className="flex items-center justify-between py-2.5">
-            <div className="hidden md:flex items-center gap-2">
-              <span className="w-1 h-1 rounded-full bg-gold animate-pulse" />
-              <span className="font-secondary text-[11px] tracking-[0.18em] uppercase text-white/40">
-                Sheger Dental Clinic — Addis Ababa
-              </span>
-            </div>
-            <p className="font-secondary text-[11px] text-white/55 tracking-wide text-center flex-1 md:flex-none">
-              <span className="text-gold font-medium">New patients welcome</span>
-              &nbsp;· Free first consultation this month
-            </p>
-            <a
-              href="tel:+251954944389"
-              className="hidden md:flex items-center gap-1.5 text-white/40 hover:text-gold transition-colors duration-200"
-            >
-              <RiPhoneLine size={12} />
-              <span className="font-secondary text-[11px] tracking-wide">+251 95 494 4389</span>
-            </a>
-          </div>
-        </div>
-      </motion.div>
-    )}
-  </AnimatePresence>
-);
+
 
 /* ─── Contact Drawer ────────────────────────────────────────────── */
 const ContactDrawer = ({ onClose }) => {
@@ -318,8 +282,7 @@ const Header = () => {
   return (
     <>
       <div className="fixed left-0 right-0 z-50">
-        <AnnouncementBar visible={announcementVisible && !scrolled} />
-
+      
         <motion.header
           initial={{ y: -80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

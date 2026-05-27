@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   RiChat1Line,
@@ -66,6 +67,7 @@ const itemVariant = {
 
 /* ─── Contact Section ────────────────────────────────────────────── */
 const Contact = () => {
+  const [selectedService, setSelectedService] = useState("");
   return (
     <section className="py-24 xl:py-36 overflow-hidden bg-cream-section" id="contact">
       <div className="container">
@@ -233,13 +235,28 @@ const Contact = () => {
 
             {/* Appointment type pills */}
             <div className="px-8 pt-6 pb-2 flex items-center gap-3 flex-wrap">
-              {["General Check-up", "Cosmetic Consult", "Emergency Care", "Orthodontics"].map((type) => (
-                <span
-                  key={type}
-                  className="font-secondary text-[11px] font-medium tracking-wide text-subtle border border-border px-3 py-1.5 hover:border-gold/40 hover:text-gold transition-all duration-200 cursor-pointer"
+              {[
+                { label: "General Check-up",  value: "General Check-up"      },
+                { label: "Cosmetic Consult",   value: "Cosmetic Dentistry"    },
+                { label: "Emergency Care",     value: "Emergency Care"        },
+                { label: "Orthodontics",       value: "Orthodontics / Aligners"},
+              ].map(({ label, value }) => (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() =>
+                    setSelectedService((prev) => (prev === value ? "" : value))
+                  }
+                  className={[
+                    "font-secondary text-[11px] font-medium tracking-wide px-3 py-1.5",
+                    "border transition-all duration-200 cursor-pointer",
+                    selectedService === value
+                      ? "border-gold bg-gold/10 text-gold"
+                      : "border-border text-subtle hover:border-gold/40 hover:text-gold",
+                  ].join(" ")}
                 >
-                  {type}
-                </span>
+                  {label}
+                </button>
               ))}
             </div>
 
@@ -248,7 +265,7 @@ const Contact = () => {
 
             {/* Form */}
             <div className="px-8 py-8">
-              <Form />
+              <Form selectedService={selectedService} />
             </div>
 
             {/* Footer note */}
