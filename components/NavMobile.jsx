@@ -9,18 +9,18 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { RiMenu3Fill, RiCloseLine, RiArrowRightUpLine } from "react-icons/ri";
+import { motion } from "framer-motion";
+import { RiMenu3Fill, RiCloseLine, RiArrowRightLine } from "react-icons/ri";
 import { Link as ScrollLink } from "react-scroll";
 import Logo from "./Logo";
-import Socials from "./Socials";
 
 const links = [
-  { name: "Home",     link: "home"     },
-  { name: "About",    link: "about"    },
-  { name: "Services", link: "services" },
-  { name: "Our Work", link: "our work" },
-  { name: "Contact",  link: "contact"  },
+  { name: "Home",         link: "home",     number: "01" },
+  { name: "About",        link: "about",    number: "02" },
+  { name: "Services",     link: "services", number: "03" },
+  { name: "Our Work",     link: "our-work", number: "04" },
+  { name: "Testimonials", link: "testimonials", number: "05" },
+  { name: "Contact",      link: "contact",  number: "06" },
 ];
 
 const NavMobile = () => {
@@ -32,26 +32,33 @@ const NavMobile = () => {
       {/* ── Hamburger trigger ── */}
       <SheetTrigger asChild>
         <motion.button
-          whileTap={{ scale: 0.9 }}
+          whileTap={{ scale: 0.92 }}
           onClick={() => setIsOpen(true)}
-          className="flex items-center justify-center w-10 h-10 rounded-lg
-                     border border-white/15 bg-white/5 text-white
-                     transition-colors duration-200 hover:bg-white/10"
+          className="flex items-center justify-center w-10 h-10
+                     border border-white/20 bg-white/5 text-white
+                     hover:border-gold/50 hover:bg-gold/10 hover:text-gold
+                     transition-all duration-300"
           aria-label="Open navigation menu"
         >
-          <RiMenu3Fill className="text-xl" />
+          <RiMenu3Fill className="text-lg" />
         </motion.button>
       </SheetTrigger>
 
       {/* ── Drawer panel ── */}
-     <SheetContent
-  side="right"
-  className="w-[300px] sm:w-[340px] bg-primary border-none p-0 flex flex-col [&>button]:hidden"
->
-        {/* Accent top line */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent" />
-        {/* Subtle shimmer */}
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent pointer-events-none" />
+      <SheetContent
+        side="right"
+        className="w-[300px] sm:w-[340px] bg-primary border-none p-0 flex flex-col [&>button]:hidden"
+      >
+        {/* Gold top hairline */}
+        <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-gold to-transparent z-10" />
+
+        {/* Decorative background watermark */}
+        <div className="absolute bottom-12 right-6 font-primary text-[120px] font-bold text-white/[0.02] leading-none select-none pointer-events-none">
+          S
+        </div>
+
+        {/* Subtle gold radial glow */}
+        <div className="absolute top-0 right-0 w-48 h-48 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
 
         <SheetHeader className="sr-only">
           <SheetTitle>Navigation Menu</SheetTitle>
@@ -61,14 +68,15 @@ const NavMobile = () => {
         <div className="relative flex flex-col h-full px-8 pt-10 pb-10">
 
           {/* ── Header row: Logo + close ── */}
-          <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center justify-between mb-10">
             <Logo />
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-center w-9 h-9 rounded-lg
-                         border border-white/15 bg-white/5 text-white/60
-                         transition-colors duration-200 hover:text-white hover:bg-white/10"
+              className="flex items-center justify-center w-9 h-9
+                         border border-white/15 bg-white/5 text-white/50
+                         hover:border-gold/50 hover:text-gold hover:bg-gold/10
+                         transition-all duration-300"
               aria-label="Close navigation menu"
             >
               <RiCloseLine className="text-xl" />
@@ -76,14 +84,14 @@ const NavMobile = () => {
           </div>
 
           {/* ── Nav links ── */}
-          <ul className="flex flex-col gap-1 flex-1">
+          <ul className="flex flex-col flex-1">
             {links.map((link, index) => (
               <motion.li
                 key={index}
-                initial={{ opacity: 0, x: 20 }}
+                initial={{ opacity: 0, x: 24 }}
                 animate={isOpen ? { opacity: 1, x: 0 } : {}}
                 transition={{
-                  duration: 0.35,
+                  duration: 0.4,
                   delay: 0.05 + index * 0.07,
                   ease: [0.22, 1, 0.36, 1],
                 }}
@@ -93,20 +101,32 @@ const NavMobile = () => {
                   smooth
                   spy
                   duration={500}
-                  offset={-120}
-                  activeClass="active-nav-link"
+                  offset={-100}
+                  activeClass="active-mobile-link"
                   onClick={() => setIsOpen(false)}
                   className="cursor-pointer group flex items-center justify-between
-                             px-4 py-3.5 rounded-xl
-                             font-primary text-sm font-semibold tracking-[0.12em] uppercase
-                             text-white/60 hover:text-white hover:bg-white/5
+                             px-0 py-3.5 border-b border-white/[0.06]
                              transition-all duration-200"
                 >
-                  <span>{link.name}</span>
-                  <RiArrowRightUpLine
-                    className="text-base text-accent opacity-0 -translate-x-1
+                  <div className="flex items-center gap-3">
+                    {/* Index number */}
+                    <span className="font-secondary text-[10px] text-gold/40 tracking-widest w-5
+                                     group-hover:text-gold/70 transition-colors duration-200">
+                      {link.number}
+                    </span>
+                    {/* Link name */}
+                    <span className="font-primary text-[15px] font-semibold tracking-[0.1em] uppercase
+                                     text-white/60 group-hover:text-white
+                                     transition-colors duration-200">
+                      {link.name}
+                    </span>
+                  </div>
+
+                  {/* Arrow — slides in on hover */}
+                  <RiArrowRightLine
+                    className="text-sm text-gold opacity-0 -translate-x-2
                                group-hover:opacity-100 group-hover:translate-x-0
-                               transition-all duration-200"
+                               transition-all duration-300"
                   />
                 </ScrollLink>
               </motion.li>
@@ -114,63 +134,65 @@ const NavMobile = () => {
           </ul>
 
           {/* ── Divider ── */}
-          <div className="h-px bg-white/10 my-8" />
+          <div className="h-px bg-white/10 my-7" />
 
           {/* ── CTA button ── */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={isOpen ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.4, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.4, delay: 0.52, ease: [0.22, 1, 0.36, 1] }}
             className="mb-8"
           >
-            <ScrollLink to="contact" smooth duration={500} offset={-120} onClick={() => setIsOpen(false)}>
+            <ScrollLink
+              to="contact"
+              smooth
+              duration={500}
+              offset={-100}
+              onClick={() => setIsOpen(false)}
+            >
               <button
                 className="group w-full flex items-center justify-between
-                           bg-accent text-primary
-                           pl-5 pr-1.5 py-1.5 rounded-lg
-                           font-primary text-xs font-bold tracking-[0.15em] uppercase
-                           transition-all duration-200 hover:bg-accent/90 shadow-custom"
+                           bg-gold text-primary
+                           pl-5 pr-1.5 py-1.5
+                           font-secondary text-xs font-bold tracking-[0.18em] uppercase
+                           shadow-gold-glow hover:shadow-none
+                           transition-all duration-300"
               >
-                <span>Contact Us</span>
-                <span className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/15
-                                 transition-all duration-200 group-hover:bg-primary/25">
-                  <RiArrowRightUpLine className="text-base transition-transform duration-300 group-hover:rotate-45" />
+                <span>Book Appointment</span>
+                <span className="flex h-8 w-8 items-center justify-center bg-primary/15
+                                 transition-all duration-300 group-hover:bg-primary/25">
+                  <RiArrowRightLine className="text-sm transition-transform duration-300 group-hover:translate-x-0.5" />
                 </span>
               </button>
             </ScrollLink>
           </motion.div>
 
-          {/* ── Socials ── */}
+          {/* ── Clinic info ── */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={isOpen ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.4, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col gap-3"
+            transition={{ duration: 0.4, delay: 0.58, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col gap-1.5"
           >
-            <p className="font-primary text-[10px] font-semibold tracking-[0.2em] uppercase text-white/30">
-              Follow Us
+            <p className="font-secondary text-[10px] font-semibold tracking-[0.2em] uppercase text-white/25">
+              Addis Ababa, Ethiopia
             </p>
-            <Socials
-              containerStyles="flex items-center gap-5"
-              iconStyles="text-white/40 hover:text-accent text-lg transition-colors duration-200"
-            />
+            <p className="font-secondary text-[10px] tracking-wider text-white/20">
+              Open Mon – Sat · 8am – 6pm
+            </p>
           </motion.div>
 
         </div>
 
-        {/* Bottom accent line */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+        {/* Gold bottom hairline */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
       </SheetContent>
 
-    <style>{`
-  .active-nav-link {
-    color: #05c4a8 !important;
-    background: rgba(5, 196, 168, 0.08);
-  }
-
-
-
-`}</style>
+      <style>{`
+        .active-mobile-link span.font-primary {
+          color: #C9A84C !important;
+        }
+      `}</style>
     </Sheet>
   );
 };

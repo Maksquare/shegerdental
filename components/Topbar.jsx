@@ -2,18 +2,30 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { RiPhoneFill, RiMailFill } from "react-icons/ri";
+import { RiPhoneFill, RiMailFill, RiMapPin2Fill } from "react-icons/ri";
 import Socials from "./Socials";
 
 const contactItems = [
-  { icon: <RiPhoneFill />, label: "+2519 1234 5678",          href: "tel:+251912345678"             },
-  { icon: <RiMailFill />,  label: "Texashomecare@gmail.com", href: "mailto:Texashomecare@gmail.com" },
+  {
+    icon: <RiPhoneFill />,
+    label: "+251 95 494 4389",
+    href: "tel:+251954944389",
+  },
+  {
+    icon: <RiMailFill />,
+    label: "info@shegerdentalclinic.com",
+    href: "mailto:info@shegerdentalclinic.com",
+  },
+  {
+    icon: <RiMapPin2Fill />,
+    label: "Addis Ababa, Ethiopia",
+    href: "#contact",
+  },
 ];
 
 const Topbar = () => {
   const [visible, setVisible] = useState(true);
 
-  /* Hide topbar once user scrolls past 60px */
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY < 60);
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -29,58 +41,189 @@ const Topbar = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -12 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          /* 
-           * fixed at the very top — z-[60] so it sits above the header (z-50).
-           * Height is exactly h-12 (48px); the Header reads this via top-12.
-           */
-          className="fixed top-0 left-0 right-0 z-[60] h-12 overflow-hidden bg-primary"
           id="home"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 60,
+            height: "36px",
+            overflow: "hidden",
+            background: "#07111c",
+          }}
         >
-          {/* Accent shimmer */}
-          <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-transparent to-accent/5 pointer-events-none" />
-          {/* Bottom hairline */}
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+          {/* Subtle gold shimmer overlay */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              pointerEvents: "none",
+              background:
+                "linear-gradient(90deg, rgba(201,168,76,0.05) 0%, transparent 50%, rgba(201,168,76,0.03) 100%)",
+            }}
+          />
 
-          <div className="container h-full">
-            <div className="flex h-full items-center justify-between">
+          {/* Bottom gold hairline */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: "1px",
+              pointerEvents: "none",
+              background:
+                "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.45) 25%, rgba(201,168,76,0.45) 75%, transparent 100%)",
+            }}
+          />
 
-              {/* Contact links */}
-              <div className="hidden xl:flex items-center gap-6">
-                {contactItems.map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-0">
-                    {idx !== 0 && <div className="w-px h-4 bg-white/15 mr-6" />}
-                    <a
-                      href={item.href}
-                      className="group flex items-center gap-2.5 transition-colors duration-200"
+          {/* Inner layout — use max-w + px directly, avoid container class padding issues */}
+          <div
+            style={{
+              maxWidth: "1280px",
+              margin: "0 auto",
+              padding: "0 24px",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            {/* Left: contact links */}
+            <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
+              {contactItems.map((item, idx) => (
+                <div key={idx} style={{ display: "flex", alignItems: "center" }}>
+                  {idx !== 0 && (
+                    <div
+                      style={{
+                        width: "1px",
+                        height: "12px",
+                        margin: "0 16px",
+                        background: "rgba(201,168,76,0.2)",
+                        flexShrink: 0,
+                      }}
+                    />
+                  )}
+                  <a
+                    href={item.href}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      textDecoration: "none",
+                    }}
+                    className="topbar-link"
+                  >
+                    <span
+                      className="topbar-icon"
+                      style={{
+                        color: "rgba(201,168,76,0.65)",
+                        fontSize: "11px",
+                        lineHeight: 1,
+                        display: "flex",
+                        alignItems: "center",
+                        transition: "color 0.2s ease",
+                      }}
                     >
-                      <span className="text-accent text-sm transition-transform duration-200 group-hover:scale-110">
-                        {item.icon}
-                      </span>
-                      <span className="font-primary text-xs font-medium text-white/70 group-hover:text-white transition-colors duration-200 tracking-wide">
-                        {item.label}
-                      </span>
-                    </a>
-                  </div>
-                ))}
-              </div>
-
-              {/* Right: 24/7 pill + socials */}
-              <div className="flex items-center gap-6 mx-auto xl:mx-0 xl:ml-auto">
-                <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shrink-0" />
-                  <span className="font-primary text-[10px] font-semibold tracking-[0.15em] uppercase text-white/50">
-                    Open 24 / 7
-                  </span>
+                      {item.icon}
+                    </span>
+                    <span
+                      className="topbar-label"
+                      style={{
+                        fontFamily: "var(--font-secondary, Jost), sans-serif",
+                        fontSize: "11px",
+                        fontWeight: 500,
+                        letterSpacing: "0.04em",
+                        color: "rgba(255,255,255,0.5)",
+                        transition: "color 0.2s ease",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {item.label}
+                    </span>
+                  </a>
                 </div>
-                <div className="hidden xl:block w-px h-4 bg-white/15" />
-                <Socials
-                  containerStyles="flex items-center gap-5"
-                  iconStyles="text-white/50 hover:text-accent text-sm transition-colors duration-200"
-                />
+              ))}
+            </div>
+
+            {/* Right: hours badge + socials */}
+            <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+
+              {/* Hours badge — NO background fill, only border */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  padding: "2px 10px",
+                  border: "1px solid rgba(201,168,76,0.25)",
+                  background: "transparent",
+                  flexShrink: 0,
+                }}
+              >
+                {/* Ping dot */}
+                <span style={{ position: "relative", display: "flex", width: "6px", height: "6px", flexShrink: 0 }}>
+                  <span
+                    className="animate-ping"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      display: "inline-flex",
+                      width: "100%",
+                      height: "100%",
+                      background: "#C9A84C",
+                      opacity: 0.6,
+                    }}
+                  />
+                  <span
+                    style={{
+                      position: "relative",
+                      display: "inline-flex",
+                      width: "6px",
+                      height: "6px",
+                      background: "#C9A84C",
+                    }}
+                  />
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-secondary, Jost), sans-serif",
+                    fontSize: "10px",
+                    fontWeight: 600,
+                    letterSpacing: "0.13em",
+                    textTransform: "uppercase",
+                    color: "rgba(201,168,76,0.7)",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Open Mon – Sat · 8am – 6pm
+                </span>
               </div>
 
+              {/* Divider */}
+              <div
+                style={{
+                  width: "1px",
+                  height: "12px",
+                  background: "rgba(201,168,76,0.2)",
+                  flexShrink: 0,
+                }}
+              />
+
+              {/* Socials */}
+              <Socials
+                containerStyles="flex items-center gap-4"
+                iconStyles="text-white/40 hover:text-white text-sm transition-colors duration-200"
+              />
             </div>
           </div>
+
+          {/* Hover styles via injected CSS */}
+          <style>{`
+            .topbar-link:hover .topbar-icon { color: #C9A84C !important; }
+            .topbar-link:hover .topbar-label { color: rgba(255,255,255,0.85) !important; }
+          `}</style>
         </motion.div>
       )}
     </AnimatePresence>

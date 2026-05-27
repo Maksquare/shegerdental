@@ -1,43 +1,70 @@
-import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond, Jost, Italiana } from "next/font/google";
 import "./globals.css";
-import FloatingIcon from "@/components/FloatingIcon";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
-const playfair = Playfair_Display({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-playfair",
-  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-cormorant",
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const jost = Jost({
   subsets: ["latin"],
-  variable: "--font-jakarta",
-  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-jost",
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
+const italiana = Italiana({
+  subsets: ["latin"],
+  variable: "--font-italiana",
+  weight: ["400"],
+  display: "swap",
 });
 
 export const metadata = {
-  title: "Texas Homecare",
-  description: "Hospital level care at the comfort of your home",
+  title: {
+    default: "Sheger Dental Clinic | Premium Dental Care in Addis Ababa",
+    template: "%s | Sheger Dental Clinic",
+  },
+  description:
+    "Experience world-class dental care at Sheger Dental Clinic. From cosmetic dentistry to advanced oral surgery, we deliver excellence with a gentle touch.",
+  keywords: [
+    "dental clinic Addis Ababa",
+    "Sheger Dental",
+    "cosmetic dentistry Ethiopia",
+    "teeth whitening",
+    "dental implants",
+    "orthodontics Addis Ababa",
+  ],
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
+  openGraph: {
+    title: "Sheger Dental Clinic | Premium Dental Care in Addis Ababa",
+    description:
+      "Experience world-class dental care at Sheger Dental Clinic. Excellence, precision, and comfort — every visit.",
+    type: "website",
+    locale: "en_ET",
+    siteName: "Sheger Dental Clinic",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${playfair.variable} ${jakarta.variable} antialiased`}
+        className={`${cormorant.variable} ${jost.variable} ${italiana.variable} antialiased`}
       >
-             <div className="pt-28">
-
-        {children}
-        <WhatsAppButton/>
-             </div>
-      
+        <div>
+          {children}
+          <WhatsAppButton />
+        </div>
       </body>
     </html>
   );

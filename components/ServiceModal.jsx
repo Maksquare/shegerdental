@@ -6,29 +6,35 @@ import { motion, AnimatePresence } from "framer-motion";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import {
-  PiCheckCircleFill,
+  PiCheckFat,
   PiArrowRightBold,
   PiXBold,
-  PiStarFill,
+  PiStarFourFill,
   PiArrowUpRightBold,
 } from "react-icons/pi";
 
 const MotionLi = motion.li;
 
+/* ─── Animation variants ─────────────────────────────────────────── */
 const overlayVariants = {
-  hidden: { opacity: 0 },
+  hidden:  { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.3 } },
   exit:    { opacity: 0, transition: { duration: 0.22 } },
 };
 
 const panelVariants = {
-  hidden:  { opacity: 0, y: 40, scale: 0.97 },
-  visible: { opacity: 1, y: 0,  scale: 1,    transition: { duration: 0.42, ease: [0.22, 1, 0.36, 1] } },
-  exit:    { opacity: 0, y: 24, scale: 0.97, transition: { duration: 0.26, ease: [0.22, 1, 0.36, 1] } },
+  hidden:  { opacity: 0, y: 36, scale: 0.98 },
+  visible: { opacity: 1, y: 0,  scale: 1,   transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
+  exit:    { opacity: 0, y: 20, scale: 0.98, transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] } },
 };
 
-// onBookConsultation — called by both "Book a Consultation" and "Contact Us"
-// closes this modal and opens the ContactModal in the parent
+/* ─── Dental-specific mini stats ────────────────────────────────── */
+const miniStats = [
+  { label: "Consultations",  value: "Free"      },
+  { label: "Technology",     value: "Digital 3D" },
+  { label: "Specialists",    value: "Certified"  },
+];
+
 export default function ServiceModal({ service, open, onOpenChange, onBookConsultation }) {
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -38,8 +44,8 @@ export default function ServiceModal({ service, open, onOpenChange, onBookConsul
   if (!service) return null;
 
   function handleContact() {
-    onOpenChange(false);          // close service modal
-    onBookConsultation?.();       // open contact modal
+    onOpenChange(false);
+    onBookConsultation?.();
   }
 
   return (
@@ -48,76 +54,101 @@ export default function ServiceModal({ service, open, onOpenChange, onBookConsul
         <AnimatePresence>
           {open && (
             <>
-              {/* ── Overlay ── */}
+              {/* ── Overlay ──────────────────────────────────────── */}
               <Dialog.Overlay asChild forceMount>
                 <motion.div
                   variants={overlayVariants}
-                  initial="hidden" animate="visible" exit="exit"
-                  className="fixed inset-0 z-[80] bg-primary/40 backdrop-blur-sm"
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="fixed inset-0 z-[80] bg-primary/70 backdrop-blur-md"
                 />
               </Dialog.Overlay>
 
-              {/* ── Centering wrapper ── */}
+              {/* ── Panel ────────────────────────────────────────── */}
               <Dialog.Content asChild forceMount>
                 <div className="fixed inset-0 z-[90] flex items-center justify-center p-4 pointer-events-none">
-                  {/* Hidden title — satisfies Radix a11y requirement */}
                   <VisuallyHidden.Root>
                     <Dialog.Title>{service?.name ?? "Service details"}</Dialog.Title>
                   </VisuallyHidden.Root>
+
                   <motion.div
                     variants={panelVariants}
-                    initial="hidden" animate="visible" exit="exit"
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
                     className={[
                       "relative w-full max-w-5xl max-h-[92vh]",
-                      "bg-white rounded-3xl shadow-[0_32px_80px_rgba(201,64,112,0.18)]",
+                      "bg-surface shadow-deep",
                       "flex flex-col overflow-hidden",
                       "outline-none pointer-events-auto",
+                      "border border-border",
                     ].join(" ")}
                     style={{ willChange: "transform, opacity" }}
                   >
-                    {/* ── Header Bar ── */}
+                    {/* Gold top accent line */}
+                    <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold to-transparent z-10" />
+
+                    {/* ── Header Bar ───────────────────────────── */}
                     <div className="relative flex items-center justify-between px-7 py-5 border-b border-border shrink-0">
                       <div className="flex items-center gap-4">
-                        <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-accent/10 text-accent text-xl shrink-0">
-                          {service.icon}
+                        {/* Icon square */}
+                        <div className="flex items-center justify-center w-10 h-10 border border-gold/20 bg-gold/5 shrink-0">
+                          {service.icon && (
+                            <service.icon size={17} className="text-gold" />
+                          )}
                         </div>
+
                         <div>
-                          <p className="font-primary text-xs font-semibold tracking-[0.18em] uppercase text-accent">
-                            {service.tag} — {service.name}
-                          </p>
-                          <p className="font-secondary text-lg font-bold text-primary leading-tight">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <PiStarFourFill className="text-gold/50 text-[8px]" />
+                            <p className="font-secondary text-[10px] font-medium tracking-[0.24em] uppercase text-gold/80">
+                              {service.tag} — {service.name}
+                            </p>
+                          </div>
+                          <p
+                            className="font-primary font-semibold text-primary leading-tight tracking-[-0.01em]"
+                            style={{ fontSize: "clamp(16px, 1.5vw, 20px)" }}
+                          >
                             {service.title}
                           </p>
                         </div>
                       </div>
 
                       <div className="flex items-center gap-3">
-                        <span className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-xs font-semibold font-primary text-primary/70">
-                          <PiStarFill className="text-accent text-[10px]" />
-                          Premium Care
-                        </span>
+                        {/* Premium badge */}
+                        <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 border border-gold/20 bg-gold/5">
+                          <PiStarFourFill className="text-gold text-[8px]" />
+                          <span className="font-secondary text-[10px] font-medium tracking-[0.18em] uppercase text-gold/80">
+                            Premium Care
+                          </span>
+                        </div>
+
+                        {/* Close button */}
                         <Dialog.Close asChild>
                           <button
                             className={[
-                              "flex items-center justify-center w-9 h-9 rounded-xl",
-                              "bg-surface border border-border text-muted",
-                              "hover:bg-primary hover:text-white hover:border-primary",
+                              "flex items-center justify-center w-9 h-9",
+                              "border border-border text-subtle",
+                              "hover:border-gold/40 hover:text-gold",
                               "transition-all duration-200 outline-none",
                             ].join(" ")}
                             aria-label="Close"
                           >
-                            <PiXBold className="text-sm" />
+                            <PiXBold size={13} />
                           </button>
                         </Dialog.Close>
                       </div>
                     </div>
 
-                    {/* ── Scrollable Body ── */}
+                    {/* ── Scrollable Body ──────────────────────── */}
                     <div className="flex-1 overflow-y-auto">
                       <div className="flex flex-col lg:flex-row">
 
-                        {/* ── Left: Images & mini-stats ── */}
-                        <div className="shrink-0 lg:w-[260px] xl:w-[280px] p-6 bg-[#fdf4f7] flex flex-col gap-5 border-b lg:border-b-0 lg:border-r border-border">
+                        {/* ── Left: Images & stats ─────────────── */}
+                        <div className="shrink-0 lg:w-[250px] xl:w-[270px] p-6 bg-porcelain flex flex-col gap-4 border-b lg:border-b-0 lg:border-r border-border">
+
+                          {/* Thumbnails */}
                           <div className="flex lg:flex-col gap-3">
                             {service.thumbs.map((thumb, idx) => (
                               <motion.div
@@ -125,155 +156,172 @@ export default function ServiceModal({ service, open, onOpenChange, onBookConsul
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: 0.1 + idx * 0.1, duration: 0.4 }}
-                                className="relative flex-1 min-h-[130px] rounded-2xl overflow-hidden bg-primary/5"
+                                className="relative flex-1 min-h-[120px] overflow-hidden bg-primary/5"
                                 style={{ aspectRatio: "4/3" }}
                               >
-                                <Image src={thumb.url} alt={thumb.alt} fill className="object-cover" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent pointer-events-none rounded-2xl" />
-                                <div className="absolute inset-0 rounded-2xl border border-accent/15 pointer-events-none" />
+                                <Image
+                                  src={thumb.url}
+                                  alt={thumb.alt}
+                                  fill
+                                  className="object-cover"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent pointer-events-none" />
+                                {/* Gold hover overlay */}
+                                <div className="absolute inset-0 bg-gold/0 hover:bg-gold/10 transition-colors duration-300" />
                               </motion.div>
                             ))}
                           </div>
 
+                          {/* Mini stats */}
                           <div className="flex lg:flex-col gap-2">
-                            {[
-                              { label: "Availability", value: "24 / 7"    },
-                              { label: "Setup Time",   value: "≤ 48 hrs"  },
-                              { label: "Staff",        value: "Licensed"  },
-                            ].map((stat, i) => (
+                            {miniStats.map(({ label, value }, i) => (
                               <motion.div
                                 key={i}
                                 initial={{ opacity: 0, x: -12 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.25 + i * 0.07 }}
-                                className="flex-1 lg:flex-none flex lg:flex-row items-center justify-between lg:justify-start lg:gap-3 px-4 py-3 rounded-xl bg-white border border-border"
+                                className="flex-1 lg:flex-none flex items-center justify-between gap-3 px-4 py-3 bg-surface border border-border hover:border-gold/25 transition-colors duration-200"
                               >
-                                <span className="font-primary text-[11px] font-medium text-muted">{stat.label}</span>
-                                <span className="font-secondary text-sm font-bold text-primary">{stat.value}</span>
+                                <span className="font-secondary text-[11px] font-medium text-subtle tracking-wide">
+                                  {label}
+                                </span>
+                                <span
+                                  className="font-primary font-semibold text-primary leading-none"
+                                  style={{ fontSize: "clamp(13px, 1.2vw, 15px)" }}
+                                >
+                                  {value}
+                                </span>
                               </motion.div>
                             ))}
                           </div>
 
-                          <div className="hidden lg:block h-px w-full bg-gradient-to-r from-accent/30 via-primary/10 to-transparent mt-auto" />
+                          {/* Gold divider */}
+                          <div className="hidden lg:block h-px w-full bg-gradient-to-r from-gold/30 via-gold/10 to-transparent mt-auto" />
                         </div>
 
-                        {/* ── Right: Content ── */}
+                        {/* ── Right: Content ───────────────────── */}
                         <div className="flex-1 p-7 xl:p-9">
+
+                          {/* Subtitle */}
                           <motion.p
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.15 }}
-                            className="font-primary text-sm font-semibold text-accent mb-3 tracking-wide"
+                            className="font-primary italic text-[14px] text-gold/80 mb-4 font-light"
                           >
                             {service.subtitle}
                           </motion.p>
 
+                          {/* Gold rule */}
+                          <div className="w-10 h-px bg-gold/30 mb-5" />
+
+                          {/* Description */}
                           <motion.p
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.18 }}
-                            className="font-primary text-sm leading-relaxed text-secondary mb-8 max-w-xl"
+                            className="font-secondary text-[14px] leading-[1.8] text-secondary mb-8 max-w-xl"
                           >
                             {service.description}
                           </motion.p>
 
+                          {/* What's included label */}
                           <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.22 }}
-                            className="flex items-center gap-3 mb-5"
+                            className="flex items-center gap-3 mb-6"
                           >
                             <div className="h-px flex-1 bg-border" />
-                            <span className="font-primary text-[11px] font-semibold tracking-[0.18em] uppercase text-muted">
+                            <span className="font-secondary text-[10px] font-medium tracking-[0.22em] uppercase text-subtle">
                               What's Included
                             </span>
                             <div className="h-px flex-1 bg-border" />
                           </motion.div>
 
-                          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-3 mb-10">
-                            {service.items.map((item, idx) => (
+                          {/* Items grid */}
+                          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3.5 mb-10">
+                            {service.items.map((itm, idx) => (
                               <MotionLi
                                 key={idx}
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.28 + idx * 0.045 }}
-                                className="flex items-start gap-2.5 group"
+                                className="flex items-start gap-3 group"
                               >
-                                <PiCheckCircleFill className="text-accent text-base shrink-0 mt-[1px] group-hover:scale-110 transition-transform" />
-                                <span className="font-primary text-sm font-medium text-primary leading-snug">
-                                  {item}
+                                <div className="flex items-center justify-center w-5 h-5 border border-gold/25 bg-gold/5 shrink-0 mt-[1px] group-hover:bg-gold/15 transition-colors duration-200">
+                                  <PiCheckFat className="text-gold text-[9px]" />
+                                </div>
+                                <span className="font-secondary text-[13px] font-medium text-primary/80 leading-snug group-hover:text-primary transition-colors duration-200">
+                                  {itm}
                                 </span>
                               </MotionLi>
                             ))}
                           </ul>
 
+                          {/* Commitment banner */}
                           <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.38 }}
-                            className="flex items-center gap-4 p-5 rounded-2xl bg-gradient-to-r from-primary/[0.06] to-accent/[0.06] border border-primary/10 mb-8"
+                            className="flex items-center gap-4 p-5 border border-gold/15 bg-gold/[0.03] mb-8"
                           >
-                            <div className="w-2 h-12 rounded-full bg-gradient-to-b from-primary to-accent shrink-0" />
+                            <div className="w-[2px] h-12 bg-gradient-to-b from-gold to-gold/20 shrink-0" />
                             <div>
-                              <p className="font-primary text-xs font-semibold text-muted uppercase tracking-widest mb-1">
+                              <p className="font-secondary text-[10px] font-medium tracking-[0.22em] uppercase text-subtle mb-1">
                                 Our Commitment
                               </p>
-                              <p className="font-primary text-sm font-medium text-primary leading-snug">
-                                Every service is delivered by licensed professionals with a focus on dignity, comfort, and clinical excellence.
+                              <p className="font-secondary text-[13px] text-primary/75 leading-snug">
+                                Every treatment is delivered by certified specialists using cutting-edge technology — with your comfort and confidence at the centre of every decision.
                               </p>
                             </div>
                           </motion.div>
 
-                          {/* ── CTA Row ── */}
+                          {/* ── CTA Row ─────────────────────────── */}
                           <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.42 }}
-                            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-5 border-t border-border"
+                            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-6 border-t border-border"
                           >
-                            {/* Book a Consultation → closes this, opens ContactModal */}
+                            {/* Primary CTA */}
                             <motion.button
-                              whileHover={{ scale: 1.03 }}
+                              whileHover={{ y: -2 }}
                               whileTap={{ scale: 0.97 }}
                               onClick={handleContact}
-                              className={[
-                                "flex items-center justify-center gap-2.5",
-                                "px-7 py-3.5 rounded-xl",
-                                "bg-primary text-white",
-                                "font-primary text-sm font-semibold tracking-wide",
-                                "shadow-[0_4px_24px_rgba(201,64,112,0.3)]",
-                                "hover:bg-primary/90 transition-all duration-200",
-                              ].join(" ")}
+                              className="group relative flex items-center justify-center gap-3 overflow-hidden
+                                         bg-primary px-7 py-3.5
+                                         font-secondary text-[11px] font-semibold tracking-[0.16em] uppercase text-white
+                                         transition-all duration-300 hover:shadow-deep"
                             >
-                              Book a Consultation
-                              <PiArrowRightBold className="text-xs" />
+                              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/8 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                              <span className="relative">Book a Consultation</span>
+                              <PiArrowRightBold size={11} className="relative transition-transform duration-300 group-hover:translate-x-0.5" />
                             </motion.button>
 
-                            {/* Contact Us → same behaviour */}
+                            {/* Secondary CTA */}
                             <motion.button
-                              whileHover={{ scale: 1.02 }}
-                              whileTap={{ scale: 0.98 }}
+                              whileHover={{ y: -1 }}
+                              whileTap={{ scale: 0.97 }}
                               onClick={handleContact}
-                              className={[
-                                "flex items-center justify-center gap-2",
-                                "px-6 py-3.5 rounded-xl",
-                                "bg-transparent border border-border text-primary",
-                                "font-primary text-sm font-semibold",
-                                "hover:border-accent hover:text-accent transition-all duration-200",
-                              ].join(" ")}
+                              className="flex items-center justify-center gap-2 px-6 py-3.5
+                                         border border-border text-primary
+                                         font-secondary text-[11px] font-semibold tracking-[0.16em] uppercase
+                                         hover:border-gold/40 hover:text-gold transition-all duration-200"
                             >
                               Contact Us
-                              <PiArrowUpRightBold className="text-xs" />
+                              <PiArrowUpRightBold size={11} />
                             </motion.button>
 
-                            {/* Quick-dial link */}
+                            {/* Quick-dial */}
                             <a
-                              href="tel:+251911234567"
-                              className="font-primary text-xs font-medium text-muted hover:text-primary transition-colors sm:ml-auto"
+                              href="tel:+251912345678"
+                              className="font-secondary text-[12px] font-medium text-subtle hover:text-gold transition-colors duration-200 sm:ml-auto tracking-wide"
                             >
-                              +251 91 123 4567
+                              +251 91 234 5678
                             </a>
                           </motion.div>
+
                         </div>
                       </div>
                     </div>

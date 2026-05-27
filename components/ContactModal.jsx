@@ -14,60 +14,61 @@ import {
   PiInstagramLogoFill,
   PiFacebookLogoFill,
   PiArrowRightBold,
+  PiToothFill,
 } from "react-icons/pi";
 
 const overlayVariants = {
-  hidden: { opacity: 0 },
+  hidden:  { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.28 } },
   exit:    { opacity: 0, transition: { duration: 0.2  } },
 };
 
 const panelVariants = {
-  hidden:   { opacity: 0, y: 36, scale: 0.97 },
-  visible:  { opacity: 1, y: 0,  scale: 1,    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
-  exit:     { opacity: 0, y: 20, scale: 0.97, transition: { duration: 0.24, ease: [0.22, 1, 0.36, 1] } },
+  hidden:  { opacity: 0, y: 36, scale: 0.97 },
+  visible: { opacity: 1, y: 0,  scale: 1,    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
+  exit:    { opacity: 0, y: 20, scale: 0.97, transition: { duration: 0.24, ease: [0.22, 1, 0.36, 1] } },
 };
 
 const contactChannels = [
   {
-    icon: <PiPhoneFill />,
+    icon:  <PiPhoneFill />,
     label: "Main Line",
     value: "+251 91 123 4567",
-    sub: "Call us anytime",
-    href: "tel:+251911234567",
+    sub:   "Call us Mon – Sat, 8am – 6pm",
+    href:  "tel:+251911234567",
     color: "bg-primary/10 text-primary",
   },
   {
-    icon: <PiWhatsappLogoFill />,
+    icon:  <PiWhatsappLogoFill />,
     label: "WhatsApp",
     value: "+251 91 123 4567",
-    sub: "Chat with us",
-    href: "https://wa.me/251911234567",
-    color: "bg-accent/10 text-accent",
+    sub:   "Chat with us instantly",
+    href:  "https://wa.me/251911234567",
+    color: "bg-gold/10 text-gold",
   },
   {
-    icon: <PiTelegramLogoFill />,
+    icon:  <PiTelegramLogoFill />,
     label: "Telegram",
-    value: "@Texashomecare",
-    sub: "Message us on Telegram",
-    href: "https://t.me/Texashomecare",
-    color: "bg-accent/10 text-accent",
+    value: "@ShegerDental",
+    sub:   "Message us on Telegram",
+    href:  "https://t.me/ShegerDental",
+    color: "bg-gold/10 text-gold",
   },
   {
-    icon: <PiEnvelopeFill />,
+    icon:  <PiEnvelopeFill />,
     label: "Email",
-    value: "Texashomecare@gmail.com",
-    sub: "We reply within 24 hours",
-    href: "mailto:Texashomecare@gmail.com",
+    value: "hello@shegerdental.com",
+    sub:   "We reply within 24 hours",
+    href:  "mailto:hello@shegerdental.com",
     color: "bg-primary/10 text-primary",
   },
 ];
 
 const socialLinks = [
-  { icon: <PiFacebookLogoFill />, label: "Facebook",  href: "https://facebook.com/Texashomecare"  },
-  { icon: <PiInstagramLogoFill />, label: "Instagram", href: "https://instagram.com/Texashomecare" },
-  { icon: <PiTelegramLogoFill />, label: "Telegram",  href: "https://t.me/Texashomecare"          },
-  { icon: <PiWhatsappLogoFill />, label: "WhatsApp",  href: "https://wa.me/251911234567"       },
+  { icon: <PiFacebookLogoFill />,  label: "Facebook",  href: "https://facebook.com/ShegerDental"  },
+  { icon: <PiInstagramLogoFill />, label: "Instagram", href: "https://instagram.com/ShegerDental" },
+  { icon: <PiTelegramLogoFill />,  label: "Telegram",  href: "https://t.me/ShegerDental"          },
+  { icon: <PiWhatsappLogoFill />,  label: "WhatsApp",  href: "https://wa.me/251911234567"          },
 ];
 
 export default function ContactModal({ open, onOpenChange }) {
@@ -82,50 +83,54 @@ export default function ContactModal({ open, onOpenChange }) {
         <AnimatePresence>
           {open && (
             <>
-              {/* Overlay */}
+              {/* ── Overlay ── */}
               <Dialog.Overlay asChild forceMount>
                 <motion.div
                   variants={overlayVariants}
                   initial="hidden" animate="visible" exit="exit"
-                  className="fixed inset-0 z-[80] bg-primary/40 backdrop-blur-sm"
+                  className="fixed inset-0 z-[80] bg-primary/60 backdrop-blur-sm"
                 />
               </Dialog.Overlay>
 
-              {/* Panel */}
+              {/* ── Panel ── */}
               <Dialog.Content asChild forceMount>
                 <div className="fixed inset-0 z-[90] flex items-center justify-center p-4 pointer-events-none">
                   <motion.div
                     variants={panelVariants}
                     initial="hidden" animate="visible" exit="exit"
-                    className="relative w-full max-w-2xl max-h-[92vh] bg-white rounded-3xl shadow-[0_32px_80px_rgba(201,64,112,0.18)] flex flex-col overflow-hidden outline-none pointer-events-auto"
+                    className="relative w-full max-w-2xl max-h-[92vh] bg-porcelain shadow-deep flex flex-col overflow-hidden outline-none pointer-events-auto"
+                    /* No rounded corners — matches site-wide sharp design language */
                   >
 
                     {/* ── Header ── */}
-                    <div className="relative px-7 py-6 border-b border-border shrink-0 overflow-hidden">
-                      {/* Decorative blob */}
-                      <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-gradient-to-br from-primary/10 to-accent/5 blur-2xl pointer-events-none" />
+                    <div className="relative px-7 py-6 border-b border-gold/20 shrink-0 overflow-hidden bg-primary">
+                      {/* Decorative large "S" watermark */}
+                      <div className="absolute -bottom-6 -right-4 font-primary text-[10rem] font-bold text-white/[0.04] leading-none pointer-events-none select-none">
+                        S
+                      </div>
 
                       <div className="relative flex items-start justify-between gap-4">
                         <div>
                           {/* Eyebrow */}
                           <div className="flex items-center gap-2 mb-2">
-                            <div className="h-px w-6 bg-accent" />
-                            <span className="font-primary text-[11px] font-semibold tracking-[0.2em] uppercase text-accent">
+                            <div className="h-px w-6 bg-gold" />
+                            <span className="font-secondary text-[11px] font-semibold tracking-[0.2em] uppercase text-gold">
                               Get In Touch
                             </span>
                           </div>
-                          {/* FIX: replaced <h2> with <Dialog.Title> to satisfy Radix accessibility requirement */}
-                          <Dialog.Title className="font-secondary text-2xl font-bold text-primary leading-tight">
-                            Book a Consultation
+
+                          <Dialog.Title className="font-primary text-2xl font-semibold text-white leading-tight">
+                            Book an Appointment
                           </Dialog.Title>
-                          <p className="font-primary text-sm text-secondary mt-1 max-w-xs">
-                            Reach out through any channel — our care team is ready 24/7.
+                          <p className="font-secondary text-sm text-white/60 mt-1 max-w-xs">
+                            Reach out through any channel — our dental team is ready for you.
                           </p>
                         </div>
 
+                        {/* Close button */}
                         <Dialog.Close asChild>
                           <button
-                            className="flex items-center justify-center w-9 h-9 rounded-xl bg-surface border border-border text-muted hover:bg-primary hover:text-white hover:border-primary transition-all duration-200 outline-none shrink-0 mt-1"
+                            className="flex items-center justify-center w-9 h-9 border border-gold/30 bg-white/5 text-white/60 hover:bg-gold hover:text-primary hover:border-gold transition-all duration-200 outline-none shrink-0 mt-1"
                             aria-label="Close"
                           >
                             <PiXBold className="text-sm" />
@@ -135,7 +140,7 @@ export default function ContactModal({ open, onOpenChange }) {
                     </div>
 
                     {/* ── Scrollable Body ── */}
-                    <div className="flex-1 overflow-y-auto p-7 flex flex-col gap-7">
+                    <div className="flex-1 overflow-y-auto p-7 flex flex-col gap-7 bg-porcelain">
 
                       {/* ── Contact channels grid ── */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -149,37 +154,37 @@ export default function ContactModal({ open, onOpenChange }) {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 + idx * 0.07 }}
                             whileHover={{ y: -2 }}
-                            className="flex items-center gap-4 p-4 rounded-2xl border border-border bg-white hover:border-primary/30 hover:shadow-custom transition-all duration-200 group"
+                            className="flex items-center gap-4 p-4 border border-gold/20 bg-white hover:border-gold/60 hover:shadow-gold-glow transition-all duration-200 group"
                           >
                             {/* Icon */}
-                            <div className={`flex items-center justify-center w-11 h-11 rounded-xl text-xl shrink-0 transition-transform duration-200 group-hover:scale-110 ${ch.color}`}>
+                            <div className={`flex items-center justify-center w-11 h-11 text-xl shrink-0 transition-transform duration-200 group-hover:scale-110 ${ch.color}`}>
                               {ch.icon}
                             </div>
                             {/* Text */}
                             <div className="min-w-0">
-                              <p className="font-primary text-[11px] font-semibold uppercase tracking-widest text-muted mb-0.5">
+                              <p className="font-secondary text-[11px] font-semibold uppercase tracking-widest text-gold mb-0.5">
                                 {ch.label}
                               </p>
-                              <p className="font-primary text-sm font-bold text-primary truncate">
+                              <p className="font-secondary text-sm font-bold text-primary truncate">
                                 {ch.value}
                               </p>
-                              <p className="font-primary text-xs text-secondary">
+                              <p className="font-secondary text-xs text-primary/50">
                                 {ch.sub}
                               </p>
                             </div>
                             {/* Arrow */}
-                            <PiArrowRightBold className="text-muted text-xs ml-auto shrink-0 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" />
+                            <PiArrowRightBold className="text-gold text-xs ml-auto shrink-0 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" />
                           </motion.a>
                         ))}
                       </div>
 
                       {/* ── Divider ── */}
                       <div className="flex items-center gap-3">
-                        <div className="h-px flex-1 bg-border" />
-                        <span className="font-primary text-[11px] font-semibold tracking-[0.18em] uppercase text-muted">
-                          More Ways to Reach Us
+                        <div className="h-px flex-1 bg-gold/20" />
+                        <span className="font-secondary text-[11px] font-semibold tracking-[0.18em] uppercase text-gold/70">
+                          Visit & Hours
                         </span>
-                        <div className="h-px flex-1 bg-border" />
+                        <div className="h-px flex-1 bg-gold/20" />
                       </div>
 
                       {/* ── Address + Hours ── */}
@@ -189,32 +194,32 @@ export default function ContactModal({ open, onOpenChange }) {
                         transition={{ delay: 0.36 }}
                         className="grid grid-cols-1 sm:grid-cols-2 gap-3"
                       >
-                        <div className="flex items-start gap-3 p-4 rounded-2xl bg-[#fdf4f7] border border-border">
-                          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary text-lg shrink-0 mt-0.5">
+                        <div className="flex items-start gap-3 p-4 bg-white border border-gold/20">
+                          <div className="flex items-center justify-center w-10 h-10 bg-primary/10 text-primary text-lg shrink-0 mt-0.5">
                             <PiMapPinFill />
                           </div>
                           <div>
-                            <p className="font-primary text-[11px] font-semibold uppercase tracking-widest text-muted mb-1">
-                              Our Office
+                            <p className="font-secondary text-[11px] font-semibold uppercase tracking-widest text-gold mb-1">
+                              Our Clinic
                             </p>
-                            <p className="font-primary text-sm font-medium text-primary leading-snug">
+                            <p className="font-secondary text-sm font-medium text-primary leading-snug">
                               Bole Sub-city, Woreda 03<br />
                               Addis Ababa, Ethiopia
                             </p>
                           </div>
                         </div>
 
-                        <div className="flex items-start gap-3 p-4 rounded-2xl bg-[#fdf4f7] border border-border">
-                          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-accent/10 text-accent text-lg shrink-0 mt-0.5">
+                        <div className="flex items-start gap-3 p-4 bg-white border border-gold/20">
+                          <div className="flex items-center justify-center w-10 h-10 bg-gold/10 text-gold text-lg shrink-0 mt-0.5">
                             <PiClockFill />
                           </div>
                           <div>
-                            <p className="font-primary text-[11px] font-semibold uppercase tracking-widest text-muted mb-1">
+                            <p className="font-secondary text-[11px] font-semibold uppercase tracking-widest text-gold mb-1">
                               Working Hours
                             </p>
-                            <p className="font-primary text-sm font-medium text-primary leading-snug">
-                              Mon – Sat: 8:00 AM – 8:00 PM<br />
-                              Emergency: 24 / 7
+                            <p className="font-secondary text-sm font-medium text-primary leading-snug">
+                              Mon – Sat: 8:00 AM – 6:00 PM<br />
+                              Emergency: Available 24 / 7
                             </p>
                           </div>
                         </div>
@@ -227,7 +232,7 @@ export default function ContactModal({ open, onOpenChange }) {
                         transition={{ delay: 0.44 }}
                         className="flex flex-col gap-3"
                       >
-                        <p className="font-primary text-[11px] font-semibold uppercase tracking-widest text-muted">
+                        <p className="font-secondary text-[11px] font-semibold uppercase tracking-widest text-gold/70">
                           Follow Us
                         </p>
                         <div className="flex items-center gap-3 flex-wrap">
@@ -237,13 +242,13 @@ export default function ContactModal({ open, onOpenChange }) {
                               href={s.href}
                               target="_blank"
                               rel="noopener noreferrer"
-                              whileHover={{ scale: 1.1, y: -2 }}
+                              whileHover={{ scale: 1.05, y: -2 }}
                               whileTap={{ scale: 0.95 }}
-                              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border bg-white hover:border-primary/30 hover:shadow-custom transition-all duration-200 text-primary"
+                              className="flex items-center gap-2 px-4 py-2.5 border border-gold/30 bg-white hover:border-gold hover:shadow-gold-glow transition-all duration-200 text-primary"
                               aria-label={s.label}
                             >
-                              <span className="text-lg">{s.icon}</span>
-                              <span className="font-primary text-xs font-semibold">{s.label}</span>
+                              <span className="text-lg text-gold">{s.icon}</span>
+                              <span className="font-secondary text-xs font-semibold">{s.label}</span>
                             </motion.a>
                           ))}
                         </div>
@@ -254,15 +259,15 @@ export default function ContactModal({ open, onOpenChange }) {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
-                        className="flex items-center gap-4 p-5 rounded-2xl bg-gradient-to-r from-primary/[0.06] to-accent/[0.06] border border-primary/10"
+                        className="flex items-center gap-4 p-5 border-l-2 border-gold bg-white border border-gold/20"
                       >
-                        <div className="w-1.5 h-10 rounded-full bg-gradient-to-b from-primary to-accent shrink-0" />
-                        <p className="font-primary text-sm font-medium text-primary leading-snug">
-                          Our care coordinators typically respond within{" "}
+                        <PiToothFill className="text-gold text-2xl shrink-0" />
+                        <p className="font-secondary text-sm font-medium text-primary leading-snug">
+                          Our team typically responds within{" "}
                           <span className="font-bold text-primary">30 minutes</span>{" "}
                           during working hours, and within{" "}
                           <span className="font-bold text-primary">2 hours</span>{" "}
-                          for after-hours inquiries.
+                          for after-hours dental inquiries.
                         </p>
                       </motion.div>
 

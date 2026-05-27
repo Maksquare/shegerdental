@@ -10,37 +10,13 @@ import Stats from "@/components/Stats";
 import Testimonials from "@/components/Testimonials";
 import Topbar from "@/components/Topbar";
 import Work from "@/components/Work";
-import React, { useEffect } from "react";
-import { useState } from "react";
-const Home = () => {
-  const [headerActive, setHeaderActive] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setHeaderActive(window.scrollY > 200);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-  console.log(headerActive);
+const Home = () => {
   return (
     <div className="overflow-hidden">
-      <Topbar />
-      {/* static header */}
-      <div className="relative z-10">
-        <Header />
-      </div>
-      {/* Animated header */}
-      <div
-        className={`w-full transition-transform duration-500 fixed top-0 left-0 z-50
-        
-        ${headerActive ? "translate-y-0" : "-translate-y-full"}
-        `}
-      >
-        <Header />
-      </div>
+      {/* Single header — scroll behavior handled internally */}
+      <Header />
+{/* <Topbar/> */}
       <Hero />
       <About />
       <Stats />
@@ -50,9 +26,6 @@ const Home = () => {
       <Faq />
       <Contact />
       <Footer />
-
-      {/* temp div */}
-      {/* <div className="h-[1000px]"></div> */}
     </div>
   );
 };

@@ -2,196 +2,200 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { PiPlusBold, PiMinusBold } from "react-icons/pi";
+import { PiPlusBold, PiMinusBold, PiStarFourFill } from "react-icons/pi";
+import { RiArrowRightLine } from "react-icons/ri";
 import { Link as ScrollLink } from "react-scroll";
 
+/* ─── FAQ Data ───────────────────────────────────────────────────── */
 const faqItemsData = [
   {
-    title: "What services does homecare cover?",
+    title: "What happens during my first visit?",
     description:
-      "Homecare includes daily assistance, medication reminders, nursing care, and specialized support based on individual needs. Our team tailors every plan to the specific condition and lifestyle of your loved one.",
+      "Your first visit begins with a comprehensive consultation and digital examination, including X-rays and where appropriate, a 3D CBCT scan. Your dentist will discuss your oral health, listen to your concerns, and create a personalised treatment plan — with complete transparency on timelines and costs before anything begins.",
   },
   {
-    title: "How do I choose the right caregiver?",
+    title: "Are your procedures painful?",
     description:
-      "We match caregivers based on experience, skills, and personality to fit your loved one's specific needs. You'll meet your caregiver before care begins — no surprises.",
+      "Patient comfort is our highest priority. We use the latest anaesthetic techniques and, for anxious patients, offer conscious sedation options. Most patients are surprised at how comfortable modern dentistry can be. Our team works at your pace and will always pause if you need a moment.",
   },
   {
-    title: "Is homecare available 24/7?",
+    title: "How long does a smile makeover take?",
     description:
-      "Yes, we offer round-the-clock care for clients who need continuous support at home. Our on-call team is always reachable for any urgent needs.",
+      "It depends on the treatments involved. A teeth whitening session takes around 90 minutes. Porcelain veneers typically require two appointments over two to three weeks. Full smile makeovers involving multiple treatments are planned in stages and can take one to six months. We'll give you a clear timeline at your consultation.",
   },
   {
-    title: "How is care monitored and reviewed?",
+    title: "Do you offer payment plans?",
     description:
-      "Our team regularly reviews care plans and conducts check-ins to ensure quality and safety. Families receive updates and can request reviews at any time.",
+      "Yes. We believe everyone deserves access to excellent dental care. We offer flexible payment options and can spread the cost of larger treatments over several months. Our treatment coordinator will walk you through all available options with no pressure and no hidden fees.",
   },
   {
-    title: "Can homecare support medical needs?",
+    title: "How often should I visit the dentist?",
     description:
-      "Absolutely. Our trained nurses provide medical monitoring, medication administration, and assistance with medical equipment including oxygen concentrators, CPAP machines, and more.",
+      "We recommend a check-up and professional clean every six months for most patients. Some patients with specific conditions such as gum disease or higher decay risk may benefit from more frequent visits. Regular prevention is always less costly — in time and money — than treating problems after they arise.",
   },
   {
-    title: "How much does homecare cost?",
+    title: "Are dental implants right for me?",
     description:
-      "Costs vary based on care level, hours, and specific services. We provide clear, transparent quotes before starting — no hidden fees, ever.",
+      "Implants are suitable for most adults with healthy gums and sufficient bone density. Our implant specialists use 3D imaging to assess your suitability precisely. Even if bone loss has occurred, procedures like bone grafting can often make implants possible. A consultation is the best first step.",
   },
 ];
 
-const FaqItem = ({ title, description, isOpen, onClick, index }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{
-        duration: 0.55,
-        delay: index * 0.08,
-        ease: [0.22, 1, 0.36, 1],
-      }}
+/* ─── FAQ Item ───────────────────────────────────────────────────── */
+const FaqItem = ({ title, description, isOpen, onClick, index }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 24 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+  >
+    <div
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") onClick(); }}
+      className={[
+        "group relative cursor-pointer border transition-all duration-400 outline-none",
+        isOpen
+          ? "bg-primary border-primary shadow-deep"
+          : "bg-surface border-border hover:border-gold/30 shadow-card hover:shadow-elevated",
+      ].join(" ")}
     >
-      <div
-        onClick={onClick}
-        className={[
-          "group relative cursor-pointer rounded-2xl border transition-all duration-300",
-          isOpen
-            ? "bg-primary border-primary shadow-custom"
-            : "bg-white border-border hover:border-primary/20 shadow-sm hover:shadow-custom",
-        ].join(" ")}
-      >
-        {/* Accent left bar when open */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ scaleY: 0 }}
-              animate={{ scaleY: 1 }}
-              exit={{ scaleY: 0 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute left-0 top-4 bottom-4 w-[3px] rounded-full bg-accent origin-top"
-            />
-          )}
-        </AnimatePresence>
-
-        {/* Header row */}
-        <div className="flex items-center justify-between gap-4 px-7 py-5">
-          <div className="flex items-center gap-4">
-            {/* Index number */}
-            <span
-              className={[
-                "font-primary text-xs font-bold tabular-nums transition-colors duration-300",
-                isOpen ? "text-accent/60" : "text-primary/20",
-              ].join(" ")}
-            >
-              {String(index + 1).padStart(2, "0")}
-            </span>
-
-            <h3
-              className={[
-                "font-secondary text-base xl:text-lg font-bold leading-snug tracking-tight transition-colors duration-300",
-                isOpen ? "text-white" : "text-primary",
-              ].join(" ")}
-            >
-              {title}
-            </h3>
-          </div>
-
-          {/* Toggle icon */}
+      {/* Gold left bar — open state */}
+      <AnimatePresence>
+        {isOpen && (
           <motion.div
-            animate={{ rotate: isOpen ? 180 : 0 }}
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: 1 }}
+            exit={{ scaleY: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute left-0 top-0 bottom-0 w-[2px] bg-gold origin-top"
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Header row */}
+      <div className="flex items-center justify-between gap-4 px-7 py-5">
+        <div className="flex items-center gap-5">
+          {/* Index */}
+          <span
             className={[
-              "flex items-center justify-center w-9 h-9 rounded-lg shrink-0 transition-all duration-300",
-              isOpen
-                ? "bg-accent/20 text-accent"
-                : "bg-primary/5 text-primary group-hover:bg-primary/10",
+              "font-secondary text-[11px] font-medium tracking-[0.18em] tabular-nums transition-colors duration-300 shrink-0",
+              isOpen ? "text-gold/50" : "text-primary/20",
             ].join(" ")}
           >
-            {isOpen ? (
-              <PiMinusBold className="text-sm" />
-            ) : (
-              <PiPlusBold className="text-sm" />
-            )}
-          </motion.div>
+            {String(index + 1).padStart(2, "0")}
+          </span>
+
+          {/* Title */}
+          <h3
+            className={[
+              "font-primary text-[16px] xl:text-[18px] font-medium leading-snug tracking-[-0.01em] transition-colors duration-300",
+              isOpen ? "text-white" : "text-primary",
+            ].join(" ")}
+          >
+            {title}
+          </h3>
         </div>
 
-        {/* Answer */}
-        <AnimatePresence initial={false}>
-          {isOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden"
-            >
-              <div className="px-7 pb-6 pl-[4.5rem]">
-                <div className="h-px bg-white/10 mb-5" />
-                <p className="font-primary text-sm leading-relaxed text-white/60">
-                  {description}
-                </p>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Toggle icon */}
+        <div
+          className={[
+            "flex items-center justify-center w-8 h-8 shrink-0 border transition-all duration-300",
+            isOpen
+              ? "border-gold/30 bg-gold/10 text-gold"
+              : "border-border bg-transparent text-subtle group-hover:border-gold/30 group-hover:text-gold",
+          ].join(" ")}
+        >
+          {isOpen
+            ? <PiMinusBold size={12} />
+            : <PiPlusBold size={12} />
+          }
+        </div>
       </div>
-    </motion.div>
-  );
-};
 
+      {/* Answer */}
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="px-7 pb-7 pl-[4.75rem]">
+              <div className="h-px bg-white/[0.08] mb-5" />
+              <p className="font-secondary text-[14px] leading-[1.8] text-white/55">
+                {description}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  </motion.div>
+);
+
+/* ─── FAQ Section ────────────────────────────────────────────────── */
 const Faq = () => {
   const [openIndex, setOpenIndex] = useState(0);
 
-  const toggle = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  const toggle = (index) => setOpenIndex(openIndex === index ? null : index);
 
   return (
-    <section className="py-24 xl:py-36 overflow-hidden" id="faq">
+    <section className="py-24 xl:py-36 overflow-hidden bg-porcelain-section" id="faq">
       <div className="container">
 
-        {/* ── Section Header ── */}
+        {/* ── Section Header ───────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-8 mb-14 xl:mb-16"
         >
           {/* Left */}
           <div>
-            {/* Eyebrow */}
-            <div className="flex items-center gap-3 mb-5">
-              <div className="h-px w-10 bg-accent" />
-              <span className="font-primary text-xs font-semibold tracking-[0.2em] uppercase text-accent">
+            <div className="flex items-center gap-3 mb-6">
+              <PiStarFourFill className="text-gold text-[10px]" />
+              <span className="font-secondary text-[11px] font-medium tracking-[0.26em] uppercase text-gold">
                 FAQ
               </span>
+              <div className="h-px w-8 bg-gold/40" />
             </div>
 
-            <h2 className="font-secondary text-4xl xl:text-5xl font-bold text-primary leading-tight tracking-tight max-w-lg">
-              Got Questions?{" "}
+            <h2
+              className="font-primary font-light text-primary leading-[1.1] tracking-[-0.02em] mb-1"
+              style={{ fontSize: "clamp(32px, 3.8vw, 50px)" }}
+            >
+              Got Questions?
+            </h2>
+            <h2
+              className="font-primary font-semibold text-primary leading-[1.1] tracking-[-0.02em]"
+              style={{ fontSize: "clamp(32px, 3.8vw, 50px)" }}
+            >
               <span className="relative inline-block">
-                We're Here
+                We Have Answers.
                 <motion.span
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
-                  className="absolute -bottom-1 left-0 right-0 h-[3px] bg-accent rounded-full origin-left block"
+                  transition={{ duration: 0.55, delay: 0.4, ease: "easeOut" }}
+                  className="absolute -bottom-1 left-0 right-0 h-[1.5px] bg-gold/50 origin-left block"
                 />
-              </span>{" "}
-              for You
+              </span>
             </h2>
           </div>
 
           {/* Right */}
-          <p className="font-primary text-base leading-relaxed text-secondary max-w-sm xl:text-right">
-            From care plans to daily support — answers to the questions families
-            ask most before starting their homecare journey.
+          <p className="font-secondary text-[15px] leading-[1.8] text-secondary max-w-sm xl:text-right">
+            Everything you need to know before your first visit — from
+            procedures and pricing to what to expect in the chair.
           </p>
         </motion.div>
 
-        {/* ── FAQ Grid ── */}
-        <div className="grid xl:grid-cols-2 gap-3 xl:gap-4">
+        {/* ── FAQ Grid ─────────────────────────────────────────────── */}
+        <div className="grid xl:grid-cols-2 gap-2.5 xl:gap-3">
           {faqItemsData.map((faq, index) => (
             <FaqItem
               key={index}
@@ -204,24 +208,44 @@ const Faq = () => {
           ))}
         </div>
 
-        {/* ── Bottom CTA strip ── */}
+        {/* ── Bottom CTA Strip ─────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.2 }}
-          className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-5 px-7 py-5 rounded-2xl bg-primary border border-primary/80"
+          className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-5 px-8 py-5 bg-primary border-l-2 border-gold/60"
         >
           <div className="flex items-center gap-4">
-            <div className="w-2 h-2 rounded-full bg-accent animate-pulse shrink-0" />
-            <p className="font-primary text-sm font-medium text-white/70">
-              Still have questions? Our care team is available 24/7.
+            {/* Pulsing gold dot */}
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-50" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-gold" />
+            </span>
+            <p className="font-secondary text-[14px] text-white/60 leading-snug">
+              Still have questions?{" "}
+              <span className="text-white/85 font-medium">
+                Our team is available Mon – Sat, 8am – 6pm.
+              </span>
             </p>
           </div>
-          <ScrollLink to="contact" smooth={true} duration={500}>
-            <button className="shrink-0 flex items-center gap-2 px-6 py-2.5 rounded-lg bg-accent text-primary font-primary text-xs font-bold tracking-[0.15em] uppercase transition-all duration-200 hover:bg-accent/90 shadow-custom">
-              Contact Us
-            </button>
+
+          <ScrollLink to="contact" smooth duration={500} className="shrink-0 cursor-pointer">
+            <motion.button
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.97 }}
+              className="group relative flex items-center gap-3 overflow-hidden
+                         bg-gold px-6 py-3
+                         font-secondary text-[11px] font-semibold tracking-[0.16em] uppercase text-primary
+                         transition-all duration-300 shadow-gold-glow hover:shadow-[0_6px_28px_rgba(201,168,76,0.45)]"
+            >
+              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <span className="relative">Book a Consultation</span>
+              <RiArrowRightLine
+                size={13}
+                className="relative transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </motion.button>
           </ScrollLink>
         </motion.div>
 
